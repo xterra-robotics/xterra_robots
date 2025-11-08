@@ -6,7 +6,13 @@
         discardvisual="false"
     />
     </mujoco>
-    <material name="black">
+    <link name="world"/>
+    <joint name="floating_base" type="floating">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="world"/>
+      <child link="base"/>
+    </joint>
+  <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
   </material>
   <material name="blue">
@@ -19,7 +25,7 @@
     <color rgba="0.5 0.5 0.5 1.0"/>
   </material>
   <!-- Base link -->
-  <link name="base_link">
+  <link name="base">
     <inertial>
       <origin xyz="0.058346 -0.002972 0.001919" rpy="0 0 0"/>
       <mass value="8.1318585"/>
@@ -43,13 +49,13 @@
   <!-- IMU link -->
   <link name="imu_link"/>
   <joint name="base_to_imu" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base"/>
     <child link="imu_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <joint name="FL_hip_" type="revolute">
-    <parent link="base_link"/>
+  <joint name="FL_hip_joint" type="revolute">
+    <parent link="base"/>
     <child link="FL_hip_link"/>
     <origin xyz="0.1885 0.0535 0.0" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -75,7 +81,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FL_thigh_" type="revolute">
+  <joint name="FL_thigh_joint" type="revolute">
     <parent link="FL_hip_link"/>
     <child link="FL_thigh_link"/>
     <origin xyz="0.06 0.04825 0.0" rpy="0 0 0"/>
@@ -102,7 +108,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FL_calf_" type="revolute">
+  <joint name="FL_calf_joint" type="revolute">
     <parent link="FL_thigh_link"/>
     <child link="FL_calf_link"/>
     <origin xyz="4e-05 0.0445 -0.25" rpy="0 0 0"/>
@@ -141,7 +147,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FL_foot_" type="fixed" dont_collapse="true">
+  <joint name="FL_foot_joint" type="fixed" dont_collapse="true">
     <parent link="FL_calf_link"/>
     <child link="FL_foot_link"/>
     <origin xyz="4e-05 0.0 -0.27889" rpy="0 0 0"/>
@@ -176,8 +182,8 @@
     <axis xyz="0 0 1"/>
     <limit effort="1000" lower="0" upper="0" velocity="0"/>
   </joint>
-  <joint name="FR_hip_" type="revolute">
-    <parent link="base_link"/>
+  <joint name="FR_hip_joint" type="revolute">
+    <parent link="base"/>
     <child link="FR_hip_link"/>
     <origin xyz="0.1885 -0.0535 0.0" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -203,7 +209,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FR_thigh_" type="revolute">
+  <joint name="FR_thigh_joint" type="revolute">
     <parent link="FR_hip_link"/>
     <child link="FR_thigh_link"/>
     <origin xyz="0.06 -0.04825 0.0" rpy="0 0 0"/>
@@ -230,7 +236,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FR_calf_" type="revolute">
+  <joint name="FR_calf_joint" type="revolute">
     <parent link="FR_thigh_link"/>
     <child link="FR_calf_link"/>
     <origin xyz="4e-05 -0.0445 -0.25" rpy="0 0 0"/>
@@ -269,7 +275,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="FR_foot_" type="fixed" dont_collapse="true">
+  <joint name="FR_foot_joint" type="fixed" dont_collapse="true">
     <parent link="FR_calf_link"/>
     <child link="FR_foot_link"/>
     <origin xyz="4e-05 0.0 -0.27889" rpy="0 0 0"/>
@@ -304,8 +310,8 @@
     <axis xyz="0 0 1"/>
     <limit effort="1000" lower="0" upper="0" velocity="0"/>
   </joint>
-  <joint name="RL_hip_" type="revolute">
-    <parent link="base_link"/>
+  <joint name="RL_hip_joint" type="revolute">
+    <parent link="base"/>
     <child link="RL_hip_link"/>
     <origin xyz="-0.1885 0.0535 0.0" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -331,7 +337,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RL_thigh_" type="revolute">
+  <joint name="RL_thigh_joint" type="revolute">
     <parent link="RL_hip_link"/>
     <child link="RL_thigh_link"/>
     <origin xyz="-0.06 0.04825 0.0" rpy="0 0 0"/>
@@ -358,7 +364,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RL_calf_" type="revolute">
+  <joint name="RL_calf_joint" type="revolute">
     <parent link="RL_thigh_link"/>
     <child link="RL_calf_link"/>
     <origin xyz="-4e-05 0.0445 -0.25" rpy="0 0 0"/>
@@ -397,7 +403,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RL_foot_" type="fixed" dont_collapse="true">
+  <joint name="RL_foot_joint" type="fixed" dont_collapse="true">
     <parent link="RL_calf_link"/>
     <child link="RL_foot_link"/>
     <origin xyz="4e-05 0.0 -0.27889" rpy="0 0 0"/>
@@ -432,8 +438,8 @@
     <axis xyz="0 0 1"/>
     <limit effort="1000" lower="0" upper="0" velocity="0"/>
   </joint>
-  <joint name="RR_hip_" type="revolute">
-    <parent link="base_link"/>
+  <joint name="RR_hip_joint" type="revolute">
+    <parent link="base"/>
     <child link="RR_hip_link"/>
     <origin xyz="-0.1885 -0.0535 0.0" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -459,7 +465,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RR_thigh_" type="revolute">
+  <joint name="RR_thigh_joint" type="revolute">
     <parent link="RR_hip_link"/>
     <child link="RR_thigh_link"/>
     <origin xyz="-0.06 -0.04825 0.0" rpy="0 0 0"/>
@@ -486,7 +492,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RR_calf_" type="revolute">
+  <joint name="RR_calf_joint" type="revolute">
     <parent link="RR_thigh_link"/>
     <child link="RR_calf_link"/>
     <origin xyz="-4e-05 -0.0445 -0.25" rpy="0 0 0"/>
@@ -525,7 +531,7 @@
         </geometry>
       </collision>
   </link>
-  <joint name="RR_foot_" type="fixed" dont_collapse="true">
+  <joint name="RR_foot_joint" type="fixed" dont_collapse="true">
     <parent link="RR_calf_link"/>
     <child link="RR_foot_link"/>
     <origin xyz="4e-05 0.0 -0.27889" rpy="0 0 0"/>
