@@ -40,7 +40,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="0.3562 0.20 0.114"/>
+          <box size="0.3062 0.20 0.1"/>
         </geometry>
       </collision>
   </link>
@@ -103,15 +103,15 @@
       <material name="gray"/>
     </visual>
       <collision>
-        <origin xyz="-0.02 0.0 -0.145" rpy="0 -0.08 0"/>
+        <origin xyz="-0.02 0.0 -0.15" rpy="0 -0.08 0"/>
         <geometry>
-          <box size="0.04 0.04 0.17"/>
+          <box size="0.04 0.04 0.15"/>
         </geometry>
       </collision>
       <collision>
-        <origin xyz="-0.0 0.0 -0.12" rpy="0 0.24 0"/>
+        <origin xyz="-0.0 0.0 -0.13" rpy="0 0.24 0"/>
         <geometry>
-          <box size="0.02 0.02 0.12"/>
+          <box size="0.02 0.04 0.12"/>
         </geometry>
       </collision>
   </link>
@@ -121,7 +121,7 @@
     <child link="FL_calf_link"/>
     <origin xyz="0.0 0.0 -0.25" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.797" upper="-0.212" effort="68.0" velocity="15"/>
+    <limit lower="-2.64" upper="-0.212" effort="68.0" velocity="15"/>
   </joint>
   <link name="FL_calf_link">
     <inertial>
@@ -241,15 +241,15 @@
       <material name="gray"/>
     </visual>
       <collision>
-        <origin xyz="-0.02 0.0 -0.145" rpy="0 -0.08 0"/>
+        <origin xyz="-0.02 0.0 -0.15" rpy="0 -0.08 0"/>
         <geometry>
-          <box size="0.04 0.04 0.17"/>
+          <box size="0.04 0.04 0.15"/>
         </geometry>
       </collision>
       <collision>
-        <origin xyz="-0.0 0.0 -0.12" rpy="0 0.24 0"/>
+        <origin xyz="-0.0 0.0 -0.13" rpy="0 0.24 0"/>
         <geometry>
-          <box size="0.02 0.02 0.12"/>
+          <box size="0.02 0.04 0.12"/>
         </geometry>
       </collision>
   </link>
@@ -259,7 +259,7 @@
     <child link="FR_calf_link"/>
     <origin xyz="0.0 -0.0 -0.25" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.797" upper="-0.212" effort="68.0" velocity="15"/>
+    <limit lower="-2.64" upper="-0.212" effort="68.0" velocity="15"/>
   </joint>
   <link name="FR_calf_link">
     <inertial>
@@ -379,15 +379,15 @@
       <material name="gray"/>
     </visual>
       <collision>
-        <origin xyz="-0.02 0.0 -0.145" rpy="0 -0.08 0"/>
+        <origin xyz="-0.02 0.0 -0.15" rpy="0 -0.08 0"/>
         <geometry>
-          <box size="0.04 0.04 0.17"/>
+          <box size="0.04 0.04 0.15"/>
         </geometry>
       </collision>
       <collision>
-        <origin xyz="-0.0 0.0 -0.12" rpy="0 0.24 0"/>
+        <origin xyz="-0.0 0.0 -0.13" rpy="0 0.24 0"/>
         <geometry>
-          <box size="0.02 0.02 0.12"/>
+          <box size="0.02 0.04 0.12"/>
         </geometry>
       </collision>
   </link>
@@ -397,7 +397,7 @@
     <child link="RL_calf_link"/>
     <origin xyz="-0.0 0.0 -0.25" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.797" upper="-0.212" effort="68.0" velocity="15"/>
+    <limit lower="-2.64" upper="-0.212" effort="68.0" velocity="15"/>
   </joint>
   <link name="RL_calf_link">
     <inertial>
@@ -517,15 +517,15 @@
       <material name="gray"/>
     </visual>
       <collision>
-        <origin xyz="-0.02 0.0 -0.145" rpy="0 -0.08 0"/>
+        <origin xyz="-0.02 0.0 -0.15" rpy="0 -0.08 0"/>
         <geometry>
-          <box size="0.04 0.04 0.17"/>
+          <box size="0.04 0.04 0.15"/>
         </geometry>
       </collision>
       <collision>
-        <origin xyz="-0.0 0.0 -0.12" rpy="0 0.24 0"/>
+        <origin xyz="-0.0 0.0 -0.13" rpy="0 0.24 0"/>
         <geometry>
-          <box size="0.02 0.02 0.12"/>
+          <box size="0.02 0.04 0.12"/>
         </geometry>
       </collision>
   </link>
@@ -535,7 +535,7 @@
     <child link="RR_calf_link"/>
     <origin xyz="-0.0 -0.0 -0.25" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.797" upper="-0.212" effort="68.0" velocity="15"/>
+    <limit lower="-2.64" upper="-0.212" effort="68.0" velocity="15"/>
   </joint>
   <link name="RR_calf_link">
     <inertial>
