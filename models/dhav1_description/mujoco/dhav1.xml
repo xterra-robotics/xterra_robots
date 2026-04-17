@@ -4,7 +4,7 @@
 <default>
     <default class="dhav1">
       <default class="visual">
-        <geom type="mesh" contype="0" conaffinity="0" group="2" material="dark"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="2" material="aluminium"/>
       </default>
       <default class="collision">
         <geom group="3" type="capsule" contype="1" conaffinity="1"/>
@@ -29,6 +29,9 @@
 
   <asset>
     <material name="dark" rgba="0.2 0.2 0.2 1"/>
+    <material name="purple" rgba="0.541 0.337 0.722 1"/>
+    <material name="aluminium" rgba="0.8 0.8 0.82 1"/>
+    <material name="black" rgba="0 0 0 1"/>
 
     <mesh name="torso" file="torso.STL"/>
     <mesh name="FL_hip" file="FL_hip.STL"/>
@@ -60,7 +63,7 @@
       <site name="head" pos="0.3 0 0" rgba="1 0 0 1" size="0.02" group="5"/>
       <inertial pos="0.0051 0.0026 -0.0019" quat="0.00188111 0.706633 0.000393134 0.707578" mass="7.312" diaginertia="0.105108 0.084329 0.0348137"/>
       <joint name="floating_base" type="free" limited="false" actuatorfrclimited="false"/>
-      <geom type="mesh" class="visual" mesh="torso"/>
+      <geom type="mesh" class="visual" material="purple" mesh="torso"/>
       <geom class="collision" size="0.01 0.015 0.025" pos="0.12 0.07 -0.082" type="box"/>
       <geom class="collision" size="0.01 0.015 0.025" pos="0.12 -0.07 -0.082" type="box"/>
       <geom class="collision" size="0.01 0.015 0.025" pos="-0.12 0.07 -0.082" type="box"/>
@@ -86,7 +89,7 @@
             <geom name="FL_calf_collision1" class="collision" size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom name="FL_calf_collision2" class="collision" size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
             <geom name="FL_calf_collision3" class="collision" size="0.015 0.03" pos="0.037 0 -0.205" quat="0.980067 0 0.198669 0" type="cylinder"/>
-            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" mesh="FL_foot"/>
+            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" material="black" mesh="FL_foot"/>
             <geom name="FL_foot_collision" class="foot" size="0.025" pos="0.01004 0 -0.25889" type="sphere"/>
             <site name="FL" pos="0.01004 0 -0.25889" type="sphere" size="0.025"  group="5"/>
           </body>
@@ -110,7 +113,7 @@
             <geom name="FR_calf_collision1" class="collision" size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom name="FR_calf_collision2" class="collision" size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
             <geom name="FR_calf_collision3" class="collision" size="0.015 0.03" pos="0.037 0 -0.205" quat="0.980067 0 0.198669 0" type="cylinder"/>
-            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" mesh="FR_foot"/>
+            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" material="black" mesh="FR_foot"/>
             <geom name="FR_foot_collision" class="foot" size="0.025" pos="0.01004 0 -0.25889"/>
             <site name="FR" pos="0.01004 0 -0.25889" type="sphere" size="0.025"  group="5"/>
           </body>
@@ -134,7 +137,7 @@
             <geom name="RL_calf_collision1" class="collision" size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom name="RL_calf_collision2" class="collision" size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
             <geom name="RL_calf_collision3" class="collision" size="0.015 0.03" pos="0.037 0 -0.205" quat="0.980067 0 0.198669 0" type="cylinder"/>
-            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" mesh="RL_foot"/>
+            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" material="black" mesh="RL_foot"/>
             <geom name="RL_foot_collision" class="foot" size="0.025" pos="0.01004 0 -0.25889"/>
             <site name="RL" pos="0.01004 0 -0.25889" type="sphere" size="0.025"  group="5"/>
           </body>
@@ -159,7 +162,7 @@
             <geom name="RR_calf_collision2" class="collision" size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
             <geom name="RR_calf_collision3" class="collision" size="0.015 0.03" pos="0.037 0 -0.205" quat="0.980067 0 0.198669 0" type="cylinder"/>
             <geom name="RR_foot_collision" class="foot" size="0.025" pos="0.01004 0 -0.25889"/>
-            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" mesh="RR_foot"/>
+            <geom pos="4e-05 0 -0.27889" quat="1 0 0 0" type="mesh" class="visual" material="black" mesh="RR_foot"/>
             <site name="RR" pos="0.01004 0 -0.25889" type="sphere" size="0.025"  group="5"/>
           </body>
         </body>

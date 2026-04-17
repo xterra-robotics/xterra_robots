@@ -6,6 +6,15 @@
   <mujoco>
     <compiler meshdir="../meshes/" discardvisual="false"/>
   </mujoco>
+  <material name="purple">
+    <color rgba="0.541 0.337 0.722 1.0"/>
+  </material>
+  <material name="aluminium">
+    <color rgba="0.8 0.8 0.82 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
   <link name="base">
     <inertial>
       <origin xyz="0.0051 0.0026 -0.0019" rpy="0 0 0"/>
@@ -17,9 +26,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/torso.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
-      </material>
+      <material name="purple"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -39,9 +46,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FL_hip.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="0.0 0.06 0.0" rpy="1.57 0 0"/>
@@ -68,9 +73,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FL_thigh.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
@@ -103,9 +106,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FL_calf.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.005 0.0 -0.02" rpy="0 -0.0 0"/>
@@ -144,9 +145,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FL_wheel.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -173,9 +172,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FR_hip.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="0.0 -0.06 0.0" rpy="1.57 0 0"/>
@@ -202,9 +199,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FR_thigh.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
@@ -237,9 +232,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FR_calf.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.005 0.0 -0.02" rpy="0 -0.0 0"/>
@@ -278,9 +271,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/FR_wheel.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -307,9 +298,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RL_hip.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.0 0.06 0.0" rpy="1.57 0 0"/>
@@ -336,9 +325,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RL_thigh.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
@@ -371,9 +358,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RL_calf.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.005 0.0 -0.02" rpy="0 -0.0 0"/>
@@ -412,9 +397,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RL_wheel.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -441,9 +424,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RR_hip.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.0 -0.06 0.0" rpy="1.57 0 0"/>
@@ -470,9 +451,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RR_thigh.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
@@ -505,9 +484,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RR_calf.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="aluminium"/>
     </visual>
     <collision>
       <origin xyz="-0.005 0.0 -0.02" rpy="0 -0.0 0"/>
@@ -546,9 +523,7 @@
       <geometry>
         <mesh filename="package://dhav1w_description/meshes/RR_wheel.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.75294 0.75294 0.75294 1"/>
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
