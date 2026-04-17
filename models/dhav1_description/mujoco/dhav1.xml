@@ -21,7 +21,7 @@
           <motor ctrlrange="-34 34"/>
       </default>
       <default class="knee">
-        <joint axis="0 1 0" range="-1.797 -0.212" damping="0.1" armature="0.01" frictionloss="0.2"/>
+        <joint axis="0 1 0" range="-2.64 -0.212" damping="0.1" armature="0.01" frictionloss="0.2"/>
         <motor ctrlrange="-68 68"/>
       </default>
     </default>

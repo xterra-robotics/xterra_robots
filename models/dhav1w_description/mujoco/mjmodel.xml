@@ -42,7 +42,7 @@
           <geom size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="FL_calf_link" pos="0 0 -0.25">
             <inertial pos="0.0175125 2.81877e-05 -0.149149" quat="0.706068 0.0406631 0.0407392 0.7058" mass="0.2723" diaginertia="0.00268902 0.00264909 7.89342e-05"/>
-            <joint name="FL_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.797 -0.212"/>
+            <joint name="FL_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-2.64 -0.212"/>
             <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="FL_calf"/>
             <geom size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
@@ -69,7 +69,7 @@
           <geom size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="FR_calf_link" pos="0 0 -0.25">
             <inertial pos="0.0175125 2.81877e-05 -0.149149" quat="0.706068 0.0406631 0.0407392 0.7058" mass="0.2723" diaginertia="0.00268902 0.00264909 7.89342e-05"/>
-            <joint name="FR_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.797 -0.212"/>
+            <joint name="FR_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-2.64 -0.212"/>
             <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="FR_calf"/>
             <geom size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
@@ -96,7 +96,7 @@
           <geom size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="RL_calf_link" pos="0 0 -0.25">
             <inertial pos="0.0175125 2.81877e-05 -0.149149" quat="0.706068 0.0406631 0.0407392 0.7058" mass="0.2723" diaginertia="0.00268902 0.00264909 7.89342e-05"/>
-            <joint name="RL_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.797 -0.212"/>
+            <joint name="RL_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-2.64 -0.212"/>
             <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="RL_calf"/>
             <geom size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
@@ -123,7 +123,7 @@
           <geom size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="RR_calf_link" pos="0 0 -0.25">
             <inertial pos="0.0175125 2.81877e-05 -0.149149" quat="0.706068 0.0406631 0.0407392 0.7058" mass="0.2723" diaginertia="0.00268902 0.00264909 7.89342e-05"/>
-            <joint name="RR_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.797 -0.212"/>
+            <joint name="RR_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-2.64 -0.212"/>
             <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="RR_calf"/>
             <geom size="0.015 0.02" pos="0 0 -0.02" quat="0.997189 0 -0.0749297 0" type="cylinder"/>
             <geom size="0.015 0.08" pos="0.025 0 -0.11" quat="0.988771 0 -0.149438 0" type="cylinder"/>
