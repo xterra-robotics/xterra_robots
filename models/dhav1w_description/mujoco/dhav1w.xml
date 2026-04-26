@@ -90,10 +90,10 @@
             <geom name="FL_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
             <geom name="FL_calf_collision3" class="collision" size="0.015 0.03" pos="0.017 0 -0.205" quat="0.988771 0 0.149438 0" type="cylinder"/>
             <body name="FL_wheel" pos="0 0.043 -0.22088">
-              <inertial pos="0 -0.0035258 0" mass="0.34477" diaginertia="0.00073665 0.0013536 0.00073665"/>
+              <inertial pos="0 0.012 0" mass="0.520" diaginertia="0.0007 0.0012 0.0007"/>
               <joint name="FL_wheel_joint" class="wheel" pos="0 0 0"/>
-              <geom type="mesh" class="visual" material="black" mesh="FL_wheel"/>
-              <geom name="FL_wheel_collision" class="collision" type="mesh" mesh="FL_wheel"/>
+              <geom type="mesh" class="visual" material="black" mesh="FL_wheel" pos="0 -0.048 0" quat="0 1 0 0"/>
+              <geom name="FL_wheel_collision" class="collision" type="cylinder" size="0.086 0.0225" quat="0.707107 0.707107 0 0" priority="1" condim="6" friction="0.8 0.02 0.01"/>
               <site name="FL" pos="0 0 0" type="sphere" size="0.025" group="5"/>
             </body>
           </body>
@@ -118,10 +118,10 @@
             <geom name="FR_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
             <geom name="FR_calf_collision3" class="collision" size="0.015 0.03" pos="0.017 0 -0.205" quat="0.988771 0 0.149438 0" type="cylinder"/>
             <body name="FR_wheel" pos="0 -0.043 -0.22088">
-              <inertial pos="0 0.0035258 0" mass="0.34477" diaginertia="0.00073665 0.0013536 0.00073665"/>
+              <inertial pos="0 -0.012 0" mass="0.520" diaginertia="0.0007 0.0012 0.0007"/>
               <joint name="FR_wheel_joint" class="wheel" pos="0 0 0"/>
-              <geom type="mesh" class="visual" material="black" mesh="FR_wheel"/>
-              <geom name="FR_wheel_collision" class="collision" type="mesh" mesh="FR_wheel"/>
+              <geom type="mesh" class="visual" material="black" mesh="FR_wheel" pos="0 0.048 0"/>
+              <geom name="FR_wheel_collision" class="collision" type="cylinder" size="0.086 0.0225" quat="0.707107 0.707107 0 0" priority="1" condim="6" friction="0.8 0.02 0.01"/>
               <site name="FR" pos="0 0 0" type="sphere" size="0.025" group="5"/>
             </body>
           </body>
@@ -146,10 +146,10 @@
             <geom name="RL_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
             <geom name="RL_calf_collision3" class="collision" size="0.015 0.03" pos="0.017 0 -0.205" quat="0.988771 0 0.149438 0" type="cylinder"/>
             <body name="RL_wheel" pos="0 0.043 -0.22088">
-              <inertial pos="0 -0.0035258 0" mass="0.34477" diaginertia="0.00073665 0.0013536 0.00073665"/>
+              <inertial pos="0 0.012 0" mass="0.520" diaginertia="0.0007 0.0012 0.0007"/>
               <joint name="RL_wheel_joint" class="wheel" pos="0 0 0"/>
-              <geom type="mesh" class="visual" material="black" mesh="RL_wheel"/>
-              <geom name="RL_wheel_collision" class="collision" type="mesh" mesh="RL_wheel"/>
+              <geom type="mesh" class="visual" material="black" mesh="RL_wheel" pos="0 -0.048 0" quat="0 1 0 0"/>
+              <geom name="RL_wheel_collision" class="collision" type="cylinder" size="0.086 0.0225" quat="0.707107 0.707107 0 0" priority="1" condim="6" friction="0.8 0.02 0.01"/>
               <site name="RL" pos="0 0 0" type="sphere" size="0.025" group="5"/>
             </body>
           </body>
@@ -174,10 +174,10 @@
             <geom name="RR_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
             <geom name="RR_calf_collision3" class="collision" size="0.015 0.03" pos="0.017 0 -0.205" quat="0.988771 0 0.149438 0" type="cylinder"/>
             <body name="RR_wheel" pos="0 -0.043 -0.22088">
-              <inertial pos="0 0.0035258 0" mass="0.34477" diaginertia="0.00073665 0.0013536 0.00073665"/>
+              <inertial pos="0 -0.012 0" mass="0.520" diaginertia="0.0007 0.0012 0.0007"/>
               <joint name="RR_wheel_joint" class="wheel" pos="0 0 0"/>
-              <geom type="mesh" class="visual" material="black" mesh="RR_wheel"/>
-              <geom name="RR_wheel_collision" class="collision" type="mesh" mesh="RR_wheel"/>
+              <geom type="mesh" class="visual" material="black" mesh="RR_wheel" pos="0 0.048 0"/>
+              <geom name="RR_wheel_collision" class="collision" type="cylinder" size="0.086 0.0225" quat="0.707107 0.707107 0 0" priority="1" condim="6" friction="0.8 0.02 0.01"/>
               <site name="RR" pos="0 0 0" type="sphere" size="0.025" group="5"/>
             </body>
           </body>
