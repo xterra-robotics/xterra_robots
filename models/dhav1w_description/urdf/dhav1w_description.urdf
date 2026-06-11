@@ -178,7 +178,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_wheel_joint" type="continuous">
+  <joint name="FL_wheel_joint" type="revolute">
     <origin xyz="0 0.043 -0.22088" rpy="0 0 0"/>
     <parent link="FL_calf_link"/>
     <child link="FL_wheel"/>
@@ -304,7 +304,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_wheel_joint" type="continuous">
+  <joint name="FR_wheel_joint" type="revolute">
     <origin xyz="0 -0.043 -0.22088" rpy="0 0 0"/>
     <parent link="FR_calf_link"/>
     <child link="FR_wheel"/>
@@ -430,7 +430,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_wheel_joint" type="continuous">
+  <joint name="RL_wheel_joint" type="revolute">
     <origin xyz="0 0.043 -0.22088" rpy="0 0 0"/>
     <parent link="RL_calf_link"/>
     <child link="RL_wheel"/>
@@ -556,7 +556,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_wheel_joint" type="continuous">
+  <joint name="RR_wheel_joint" type="revolute">
     <origin xyz="0 -0.043 -0.22088" rpy="0 0 0"/>
     <parent link="RR_calf_link"/>
     <child link="RR_wheel"/>

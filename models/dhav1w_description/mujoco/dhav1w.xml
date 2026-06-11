@@ -18,7 +18,7 @@
           <motor ctrlrange="-34 34"/>
       </default>
       <default class="knee">
-        <joint axis="0 1 0" range="-2.64 -0.212" damping="0.1" armature="0.01" frictionloss="0.2"/>
+        <joint axis="0 1 0" range="-2.80 -0.212" damping="0.1" armature="0.01" frictionloss="0.2"/>
         <motor ctrlrange="-68 68"/>
       </default>
       <default class="wheel">
@@ -84,7 +84,7 @@
           <geom name="FL_thigh_collision2" class="collision" size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="FL_calf_link" pos="0 0 -0.25">
             <inertial pos="0.000695 -0.00212 -0.1715" mass="0.5246" fullinertia="0.002993 0.003129 0.000221 1e-06 6e-06 3.5e-05"/>
-            <joint name="FL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.64 -0.212" actuatorfrcrange="-68 68"/>
+            <joint name="FL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.80 -0.212" actuatorfrcrange="-68 68"/>
             <geom type="mesh" class="visual" mesh="FL_calf"/>
             <geom name="FL_calf_collision1" class="collision" size="0.015 0.02" pos="-0.005 0 -0.02" quat="1 0 0 0" type="cylinder"/>
             <geom name="FL_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
@@ -112,7 +112,7 @@
           <geom name="FR_thigh_collision2" class="collision" size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="FR_calf_link" pos="0 0 -0.25">
             <inertial pos="0.000695 0.00212 -0.1715" mass="0.5246" fullinertia="0.002993 0.003129 0.000221 -1e-06 6e-06 -3.5e-05"/>
-            <joint name="FR_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.64 -0.212" actuatorfrcrange="-68 68"/>
+            <joint name="FR_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.80 -0.212" actuatorfrcrange="-68 68"/>
             <geom type="mesh" class="visual" mesh="FR_calf"/>
             <geom name="FR_calf_collision1" class="collision" size="0.015 0.02" pos="-0.005 0 -0.02" quat="1 0 0 0" type="cylinder"/>
             <geom name="FR_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
@@ -140,7 +140,7 @@
           <geom name="RL_thigh_collision2" class="collision" size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="RL_calf_link" pos="0 0 -0.25">
             <inertial pos="-0.000695 -0.00212 -0.1715" mass="0.5246" fullinertia="0.002993 0.003129 0.000221 1e-06 6e-06 3.5e-05"/>
-            <joint name="RL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.64 -0.212" actuatorfrcrange="-68 68"/>
+            <joint name="RL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.80 -0.212" actuatorfrcrange="-68 68"/>
             <geom type="mesh" class="visual" mesh="RL_calf"/>
             <geom name="RL_calf_collision1" class="collision" size="0.015 0.02" pos="-0.005 0 -0.02" quat="1 0 0 0" type="cylinder"/>
             <geom name="RL_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>
@@ -168,7 +168,7 @@
           <geom name="RR_thigh_collision2" class="collision" size="0.015 0.01 0.045" pos="0 0 -0.1" quat="0.988771 0 0.149438 0" type="box"/>
           <body name="RR_calf_link" pos="0 0 -0.25">
             <inertial pos="-0.000695 0.00212 -0.1715" mass="0.5246" fullinertia="0.002993 0.003129 0.000221 -1e-06 6e-06 -3.5e-05"/>
-            <joint name="RR_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.64 -0.212" actuatorfrcrange="-68 68"/>
+            <joint name="RR_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.80 -0.212" actuatorfrcrange="-68 68"/>
             <geom type="mesh" class="visual" mesh="RR_calf"/>
             <geom name="RR_calf_collision1" class="collision" size="0.015 0.02" pos="-0.005 0 -0.02" quat="1 0 0 0" type="cylinder"/>
             <geom name="RR_calf_collision2" class="collision" size="0.015 0.08" pos="0.005 0 -0.11" quat="0.995004 0 -0.0998334 0" type="cylinder"/>

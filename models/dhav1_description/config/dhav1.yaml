@@ -1,0 +1,195 @@
+robot_name: "dhav1"
+morphology: "quadruped"
+num_joints: 12
+num_contacts: 4
+joints_per_leg: 3
+
+urdf_path: "models/dhav1_description/urdf/dhav1_description.urdf"
+mujoco_xml_path: "models/dhav1_description/mujoco/dhav1.xml"
+
+joints:
+  names:
+    - FL_hip_joint
+    - FL_thigh_joint
+    - FL_calf_joint
+    - FR_hip_joint
+    - FR_thigh_joint
+    - FR_calf_joint
+    - RL_hip_joint
+    - RL_thigh_joint
+    - RL_calf_joint
+    - RR_hip_joint
+    - RR_thigh_joint
+    - RR_calf_joint
+
+  contact_frames:
+    - FL_foot
+    - FR_foot
+    - RL_foot
+    - RR_foot
+
+  limb_joints:
+    FL: [0, 1, 2]
+    FR: [3, 4, 5]
+    RL: [6, 7, 8]
+    RR: [9, 10, 11]
+
+  remap_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+limits:
+  # per-group: [hip, thigh, calf]
+  position_lower: [-0.863, -0.686, -2.818]   # rad
+  position_upper: [0.863, 3.829, -0.888]     # rad
+  velocity_max: [21.0, 21.0, 21.0]           # rad/s
+  effort_max: [34.0, 34.0, 68.0]             # Nm
+
+inertial:
+  total_mass: 12.0                            # kg
+  # row-major 3x3 about CoM in body frame
+  inertia: [0.07, 0.0, 0.0,
+            0.0, 0.26, 0.0,
+            0.0, 0.0, 0.242]
+  hip_offsets:
+    - [0.19, 0.11, 0.0]                      # FL
+    - [0.19, -0.11, 0.0]                     # FR
+    - [-0.19, 0.11, 0.0]                     # RL
+    - [-0.19, -0.11, 0.0]                    # RR
+
+poses:
+  standing_height: 0.3                        # m
+
+  stand:
+    # MUST match xterra_loco INIT_STATE for RL policies
+    q: [0.1, 0.65, -1.33, -0.1, 0.65, -1.33,
+        0.1, 0.87, -1.33, -0.1, 0.87, -1.33]
+    base_pos: [0.0, 0.0, 0.45]
+
+  sleep:
+    q: [0.225, 1.153, -2.720, -0.225, 1.153, -2.720,
+        0.225, 1.153, -2.720, -0.225, 1.153, -2.720]
+
+actuators:
+  # per-group: [hip, thigh, calf]
+  stiffness: [40.0, 40.0, 40.0]              # Nm/rad
+  damping: [1.0, 1.0, 1.0]                   # Nm·s/rad
+
+  # 4.0 Nm/rad matches the dhav1w spawn-hold convention. At kp=0.5 the
+  # calf couldn't hold against gravity/impact when the body settles onto
+  # its feet at spawn — the joint blew past the motor-pipeline soft
+  # limit (-7.50 rev = -2.749 rad) before the controller could take over.
+  sleep_kp: [4.0, 4.0, 4.0]
+  sleep_kd: [1.0, 1.0, 1.0]
+  stand_kp: [100.0, 100.0, 100.0]
+  stand_kd: [2.0, 2.0, 2.0]
+
+rl:
+  model_filepath: "policy.onnx"
+  inference_rate: 50                          # Hz
+
+  observation:
+    order:
+      - base_ang_vel
+      - projected_gravity
+      - commands
+      - dof_pos
+      - dof_vel
+      - actions
+
+    scales:
+      ang_vel: 0.25
+      lin_vel: 2.0
+      dof_pos: 1.0
+      dof_vel: 0.05
+      joint_torque: 0.01
+      cmd_vx: 2.0
+      cmd_vy: 2.0
+      cmd_vyaw: 0.25
+
+    clip: 100.0
+    use_history: true
+    history_size: 6
+    push_queue_front: true
+
+  action:
+    # 0.25 * effort_limit / stiffness per group
+    scales_per_group: [0.2125, 0.2125, 0.425] # hip, thigh, calf
+    clip: 100.0
+
+  commands:
+    lin_vel_x: [-1.0, 1.0]                   # m/s
+    lin_vel_y: [-1.0, 1.0]                   # m/s
+    ang_vel_z: [-2.0, 2.0]                   # rad/s
+
+mbc:
+  max_vel_x: 0.5                              # m/s
+  max_vel_y: 0.3                              # m/s
+  max_vel_yaw: 1.0                            # rad/s
+  kd_damping: 1.0                             # Nm·s/rad
+
+  mpc:
+    dt: 0.01                                  # s
+    t_horizon: 0.5                            # s
+    horizon_steps: 50
+    # [px, py, pz, roll, pitch, yaw, vx, vy, vz, wx, wy, wz]
+    q_weights: [10, 10, 1, 10, 10, 50, 0, 0, 1, 1, 1, 0.5]
+    r_weight: 1.0e-5
+    friction_coef: 0.3
+    fz_min: 0.0                               # N
+    fz_max: 120.0                             # N
+    regularization: 1.0e-4
+
+  wbc:
+    swing_kp: [200, 200, 200]
+    swing_kd: [20, 20, 20]
+    base_kp: [0, 0, 0, 100, 100, 100]        # [lin(3), ang(3)]
+    base_kd: [0, 0, 0, 20, 20, 20]
+    swing_task_weight: 100.0
+    base_task_weight: 10.0
+    contact_force_weight: 0.05
+    no_contact_weight: 100.0
+    torque_limits: [25.0, 25.0, 40.0]        # Nm per group
+    qdd_limits: [100.0, 100.0, 100.0]        # rad/s² per group
+    friction_coef: 0.3
+
+  planner:
+    default_gait: trot
+    swing_height: 0.08                        # m
+    use_capture_point: true
+    kp_velocity: 0.5
+    kd_velocity: 0.1
+
+safety:
+  roll_limit: 1.5                             # rad
+  pitch_limit: 1.5                            # rad
+  max_joint_velocity: 40.0                    # rad/s
+  max_torque: 25.0                            # Nm
+  comm_timeout_ms: 100                        # ms
+  max_faulted_motors: 2
+
+estimator:
+  gyro_noise: 0.01                            # rad/s/√Hz
+  accel_noise: 0.1                            # m/s²/√Hz
+  gyro_bias_noise: 0.001                      # rad/s²/√Hz
+  accel_bias_noise: 0.01                      # m/s³/√Hz
+  foot_process_noise: 0.01                    # m/√Hz
+  contact_force_threshold: 50.0               # N
+  contact_probability_threshold: 0.5
+
+hardware:
+  motor_map:
+    FL_hip:   [1, 1]
+    FL_thigh: [1, 2]
+    FL_calf:  [1, 3]
+    FR_hip:   [2, 1]
+    FR_thigh: [2, 2]
+    FR_calf:  [2, 3]
+    RL_hip:   [3, 1]
+    RL_thigh: [3, 2]
+    RL_calf:  [3, 3]
+    RR_hip:   [4, 1]
+    RR_thigh: [4, 2]
+    RR_calf:  [4, 3]
+  motor_temp_warn: 60.0                       # °C
+  motor_temp_fault: 80.0                      # °C
+  imu_frame: "base"
+  imu_rate: 500                               # Hz

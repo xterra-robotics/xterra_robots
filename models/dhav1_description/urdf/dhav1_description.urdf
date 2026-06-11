@@ -34,11 +34,20 @@
   </material>
   <!-- Base link -->
   <link name="base">
+<!-- ORIGINAL DHAV PARAMS -->
     <inertial>
       <origin xyz="0.0051 0.0026 -0.0019" rpy="0 0 0"/>
       <mass value="7.312"/>
       <inertia ixx="0.034814" ixy="0.000104" ixz="-9.4e-05" iyy="0.084329" iyz="6.7e-05" izz="0.105108"/>
-    </inertial>
+    </inertial> 
+
+<!--BEGIN EDITIED PARAMS FOR SIM TRIALS -->
+        <!--<inertial>
+      <origin xyz="0.0051 0.0026 -0.0019" rpy="0 0 0"/>
+      <mass value="27.312"/>
+      <inertia ixx="0.13003029" ixy="0.00038844" ixz="-0.00035109" iyy="0.314968" iyz="0.000250" izz="0.39257838"/>
+    </inertial> -->
+<!-- END EDITED PARAMS FOR SIM TRIALS -->
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
