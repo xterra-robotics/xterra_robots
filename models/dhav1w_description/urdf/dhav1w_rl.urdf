@@ -59,6 +59,13 @@
       </geometry>
     </collision>
   </link>
+  <!-- IMU link -->
+  <link name="imu_link"/>
+  <joint name="base_to_imu" type="fixed">
+    <parent link="base"/>
+    <child link="imu_link"/>
+    <origin xyz="0.07623 0.00875 0.00705" rpy="0 0 0"/>
+  </joint>
   <link name="FL_hip_link">
     <inertial>
       <origin xyz="-0.00604 0.00237 -0.00041" rpy="0 0 0"/>
@@ -84,7 +91,8 @@
     <parent link="base"/>
     <child link="FL_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-0.855" upper="0.855" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FL_thigh_link">
     <inertial>
@@ -113,11 +121,12 @@
     </collision>
   </link>
   <joint name="FL_thigh_joint" type="revolute">
-    <origin xyz="0 0.09345 0" rpy="0 0 0"/>
+    <origin xyz="0 0.09435 0" rpy="0 0 0"/>
     <parent link="FL_hip_link"/>
     <child link="FL_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FL_calf_link">
     <inertial>
@@ -156,13 +165,14 @@
     <parent link="FL_thigh_link"/>
     <child link="FL_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-2.80" upper="-0.212" effort="68" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FL_wheel">
     <inertial>
       <origin xyz="0 0.012 0" rpy="0 0 0"/>
       <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <inertia ixx="0.001301" ixy="0" ixz="0" iyy="0.002304" iyz="0" izz="0.001301"/>
     </inertial>
     <visual>
       <origin xyz="0 -0.048 0" rpy="3.14159 0 0"/>
@@ -178,12 +188,13 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_wheel_joint" type="revolute">
+  <joint name="FL_wheel_joint" type="continuous">
     <origin xyz="0 0.043 -0.22088" rpy="0 0 0"/>
     <parent link="FL_calf_link"/>
     <child link="FL_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="8"/>
+    <limit effort="14" velocity="60.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FR_hip_link">
     <inertial>
@@ -210,7 +221,8 @@
     <parent link="base"/>
     <child link="FR_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-0.855" upper="0.855" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FR_thigh_link">
     <inertial>
@@ -239,11 +251,12 @@
     </collision>
   </link>
   <joint name="FR_thigh_joint" type="revolute">
-    <origin xyz="0 -0.09345 0" rpy="0 0 0"/>
+    <origin xyz="0 -0.09435 0" rpy="0 0 0"/>
     <parent link="FR_hip_link"/>
     <child link="FR_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FR_calf_link">
     <inertial>
@@ -282,13 +295,14 @@
     <parent link="FR_thigh_link"/>
     <child link="FR_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-2.80" upper="-0.212" effort="68" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="FR_wheel">
     <inertial>
       <origin xyz="0 -0.012 0" rpy="0 0 0"/>
       <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <inertia ixx="0.001301" ixy="0" ixz="0" iyy="0.002304" iyz="0" izz="0.001301"/>
     </inertial>
     <visual>
       <origin xyz="0 0.048 0" rpy="0 0 0"/>
@@ -304,12 +318,13 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_wheel_joint" type="revolute">
+  <joint name="FR_wheel_joint" type="continuous">
     <origin xyz="0 -0.043 -0.22088" rpy="0 0 0"/>
     <parent link="FR_calf_link"/>
     <child link="FR_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="8"/>
+    <limit effort="14" velocity="60.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RL_hip_link">
     <inertial>
@@ -336,7 +351,8 @@
     <parent link="base"/>
     <child link="RL_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-0.855" upper="0.855" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RL_thigh_link">
     <inertial>
@@ -365,11 +381,12 @@
     </collision>
   </link>
   <joint name="RL_thigh_joint" type="revolute">
-    <origin xyz="0 0.09345 0" rpy="0 0 0"/>
+    <origin xyz="0 0.09435 0" rpy="0 0 0"/>
     <parent link="RL_hip_link"/>
     <child link="RL_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RL_calf_link">
     <inertial>
@@ -408,13 +425,14 @@
     <parent link="RL_thigh_link"/>
     <child link="RL_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-2.80" upper="-0.212" effort="68" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RL_wheel">
     <inertial>
       <origin xyz="0 0.012 0" rpy="0 0 0"/>
       <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <inertia ixx="0.001301" ixy="0" ixz="0" iyy="0.002304" iyz="0" izz="0.001301"/>
     </inertial>
     <visual>
       <origin xyz="0 -0.048 0" rpy="3.14159 0 0"/>
@@ -430,12 +448,13 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_wheel_joint" type="revolute">
+  <joint name="RL_wheel_joint" type="continuous">
     <origin xyz="0 0.043 -0.22088" rpy="0 0 0"/>
     <parent link="RL_calf_link"/>
     <child link="RL_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="8"/>
+    <limit effort="14" velocity="60.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RR_hip_link">
     <inertial>
@@ -462,7 +481,8 @@
     <parent link="base"/>
     <child link="RR_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-0.855" upper="0.855" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RR_thigh_link">
     <inertial>
@@ -491,11 +511,12 @@
     </collision>
   </link>
   <joint name="RR_thigh_joint" type="revolute">
-    <origin xyz="0 -0.09345 0" rpy="0 0 0"/>
+    <origin xyz="0 -0.09435 0" rpy="0 0 0"/>
     <parent link="RR_hip_link"/>
     <child link="RR_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RR_calf_link">
     <inertial>
@@ -534,13 +555,14 @@
     <parent link="RR_thigh_link"/>
     <child link="RR_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-8" upper="8" effort="34" velocity="8"/>
+    <limit lower="-2.80" upper="-0.212" effort="68" velocity="21.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="RR_wheel">
     <inertial>
       <origin xyz="0 -0.012 0" rpy="0 0 0"/>
       <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <inertia ixx="0.001301" ixy="0" ixz="0" iyy="0.002304" iyz="0" izz="0.001301"/>
     </inertial>
     <visual>
       <origin xyz="0 0.048 0" rpy="0 0 0"/>
@@ -556,11 +578,12 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_wheel_joint" type="revolute">
+  <joint name="RR_wheel_joint" type="continuous">
     <origin xyz="0 -0.043 -0.22088" rpy="0 0 0"/>
     <parent link="RR_calf_link"/>
     <child link="RR_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="8"/>
+    <limit effort="14" velocity="60.0"/>
+    <dynamics damping="0.1" friction="0.2"/>
   </joint>
 </robot>
