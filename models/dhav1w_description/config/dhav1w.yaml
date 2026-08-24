@@ -1,3 +1,8 @@
+# DHAV 1.3 wheeled.  Copied from config/dhav1w.yaml (same kinematics and
+# meshes) with names/paths retargeted and the mass properties refreshed from
+# the DHAV 1.3 CAD export.  Poses, gains, limits and the `inertial:` lumped
+# model below are INHERITED FROM dhav1w AND HAVE NOT BEEN RE-TUNED for the new
+# mass set or the smaller native wheel - see ../NOTES.md before relying on them.
 robot_name: "dhav1w"
 morphology: "quadruped_wheeled"
 num_joints: 16
@@ -8,8 +13,9 @@ urdf_path: "models/dhav1w_description/urdf/dhav1w_description.urdf"
 mujoco_xml_path: "models/dhav1w_description/mujoco/dhav1w.xml"
 
 joints:
-  # Canonical _joint suffix matching the URDF in this branch
-  # (dhav1w_description.urdf, exported from the same toolchain as dhav1).
+  # Canonical _joint suffix matching urdf/dhav1w_description.urdf.  Note the
+  # raw CAD export names two of these joints "*_thigh_link"; that is corrected
+  # to "*_thigh_joint" here and in the URDF.
   names:
     - FL_hip_joint
     - FL_thigh_joint
@@ -28,11 +34,11 @@ joints:
     - RR_calf_joint
     - RR_wheel_joint
 
-  contact_frames:
-    - FL_wheel_link
-    - FR_wheel_link
-    - RL_wheel_link
-    - RR_wheel_link
+  contact_frames:                                   # link names as in the URDF
+    - FL_wheel
+    - FR_wheel
+    - RL_wheel
+    - RR_wheel
 
   limb_joints:
     FL: [0, 1, 2, 3]
@@ -45,13 +51,26 @@ joints:
 limits:
   # per-group: [hip, thigh, calf, wheel]. Wheel position is unconstrained
   # (free-spinning) — the limit applies only at the safety integrator.
-  position_lower: [-1.020, -2.36,  1.79, -3.1416]   # rad
-  position_upper: [ 1.020,  2.36,  7.50,  3.1416]
+  #
+  # CORRECTED vs dhav1w: that file carried calf limits [1.79, 7.50], which are
+  # in the opposite sign convention to the URDF/MuJoCo ([-2.80, -0.212]) and
+  # which its own sleep pose (calf = -2.630) violated. Position limits here now
+  # match urdf/dhav1w_description.urdf and mujoco/dhav1w.xml exactly.
+  position_lower: [-0.8378, -1.7169, -2.800, -3.1416]   # rad
+  position_upper: [ 0.8378,  2.5758, -0.212,  3.1416]
+  # Velocity/effort are the MOTOR limits and are intentionally NOT the URDF's
+  # CAD-exported <limit velocity=.../> (10, 10, 10, 5 rad/s) or effort
+  # (40, 40, 80, 14 Nm). Inherited from dhav1w and NOT re-identified for
+  # DHAV 1.3 — see ../NOTES.md (C).
   velocity_max:   [21.0, 21.0, 21.0, 60.0]          # rad/s
   effort_max:     [23.7, 23.7, 45.4, 14.0]          # Nm
 
 inertial:
-  total_mass: 13.5                                  # kg (legs + wheels)
+  # Lumped single-rigid-body model for MBC. INHERITED FROM dhav1w - not
+  # re-identified for DHAV 1.3.  For reference, the full URDF mass set is
+  # 20.075 kg total (base 6.621 + 4 x [hip 0.830 + thigh 1.382 + calf 0.639 +
+  # wheel 0.513]); legs + wheels alone are 13.454 kg.
+  total_mass: 13.45                                 # kg (legs + wheels)
   inertia: [0.07, 0.0,  0.0,
             0.0,  0.26, 0.0,
             0.0,  0.0,  0.242]
@@ -140,5 +159,5 @@ hardware:
     RR_wheel:  [4, 4]
   motor_temp_warn: 65.0
   motor_temp_fault: 75.0
-  imu_frame: "base_link"
+  imu_frame: "base"                                 # root link name in the URDF/MJCF
   imu_rate: 500
