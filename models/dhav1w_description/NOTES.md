@@ -257,20 +257,36 @@ With motor torque and motor speed unchanged, three quantities follow rigorously:
 | quantity | law | v0 | now |
 |---|---|---|---|
 | output torque | × k | 34 / 68 N·m | **40 / 80 N·m** (already in the CAD export) |
-| output velocity | × 1/k | 8 rad/s (URDF) | **6.8 rad/s** |
-| output velocity | × 1/k | 21.0 rad/s (config) | **17.85 rad/s** |
-| motor-limit torque | × k | 23.7 / 45.4 N·m (config) | **27.88 / 53.41 N·m** |
+| output velocity | × 1/k | 8 rad/s (URDF) | **6.8 rad/s** — but see the caveat below |
 | reflected rotor inertia | × k² = 1.384083 | armature 0.01 | **armature 0.013841** |
+
+`config` `effort_max` is **not** in that table on purpose. It previously read
+`[23.7, 23.7, 45.4, 14.0]`, which are a **commercially available robot's published
+figures, not DHAV's** — they never described this hardware, so scaling them by k would
+manufacture a derived-looking number from a foreign spec. It is now simply the actuator
+rating, `[40.0, 40.0, 80.0, 14.0]`, matching the URDF and MJCF.
 
 The reflected-inertia term is the one that is easy to miss: `armature = J_rotor × N²`,
 so a 17.6 % ratio increase is a **38.4 % increase in reflected inertia**. It changes the
 effective joint mass the controller sees, and at these ratios it is comparable to the
 link inertia itself, so leaving it at the old value would misrepresent the plant.
 
-**The CAD export's velocity numbers are wrong and were overridden.** The export declares
-`velocity="10"` for hip/thigh/calf, i.e. *faster* than the old robot's 8 rad/s. With the
-same motor and more reduction the joint must get **slower**, not faster, so those are
-exporter placeholders. The URDF now carries 6.8 rad/s.
+**Every velocity figure in this repo is a placeholder — treat 6.8 / 17.85 as
+provisional.** Three mutually inconsistent sources exist and none is trustworthy:
+
+* `config` `[21.0, 21.0, 21.0, 60.0]` — from the same borrowed commercial spec as the
+  old `effort_max`, so it never described DHAV.
+* old URDF — a flat `8` on all four joints *including the wheel*, which is a different
+  actuator entirely. A single round number across unlike joints is a stand-in.
+* DHAV 1.3 CAD export — `velocity="10"` for hip/thigh/calf, i.e. **faster** than 8. With
+  the same motor and more reduction the joint must get *slower*, so this one is not just
+  unverified but provably wrong, and was overridden.
+
+The files carry `8 / k = 6.8 rad/s` (URDF) and `21.0 / k = 17.85 rad/s` (config) so the
+k relationship is at least self-consistent, and both are marked as placeholders. **What
+is certain regardless of baseline: whatever the true no-load joint speed was, the new
+actuator's is 0.85 × it.** Substituting the real motor speed and reduction fixes both
+numbers at once.
 
 Not touched — the wheel actuator is a different unit, unchanged at 14 N·m across both
 revisions: wheel velocity (5 rad/s), effort (14 N·m) and armature (0.01) all stand.
@@ -285,6 +301,31 @@ would be false precision; they are left alone and flagged here instead.
 records them, so `config/dhav1w.yaml` carries `actuators.gearing.ratio: null` with the
 scale factors alongside. The `armature` baseline of 0.01 is likewise an unmeasured
 placeholder inherited from `dhav1` — the *scaling* applied here is correct, but the
-absolute reflected inertia still needs measuring. Also worth confirming what 23.7 /
-45.4 N·m represent (continuous rating?) versus the 34 / 68 N·m peak, since the two pairs
-have never been consistent in this config.
+absolute reflected inertia still needs measuring. The old `23.7 / 45.4 N·m` question is closed: they were another
+robot's numbers, now replaced by the real 40 / 80 N·m rating.
+
+### K. Several `config/dhav1w.yaml` values are another robot's specs
+
+The `effort_max` figures `[23.7, 23.7, 45.4, 14.0]` carried over from `dhav1w` turned
+out to be **a commercially available robot's published specifications, not DHAV's**.
+They have been replaced by the real actuator rating `[40.0, 40.0, 80.0, 14.0]`.
+
+That matters beyond those two numbers: it means this config was seeded from a foreign
+spec sheet, so anything in it that has never been checked against the URDF should be
+assumed borrowed until confirmed. Auditing the rest against the actual model:
+
+| field | config | actual (from the URDF/MJCF) |
+|---|---|---|
+| `inertial.inertia` diag | `[0.07, 0.26, 0.242]` | `[0.674, 1.235, 1.238]` kg·m² — **5–10× out** |
+| `inertial.hip_offsets` | `[±0.19, ±0.11, 0]` | `[±0.2235, ±0.0535, 0]` |
+| `safety.max_torque` | `25.0` N·m | below the 40 N·m rating; 31 % of the 80 N·m knee |
+| `safety.max_joint_velocity` | `60.0` rad/s | vs `limits.velocity_max` `17.85` |
+| `poses.standing_height` | `0.30` m | the stand pose puts the base at `0.4343` m |
+| `limits.velocity_max` | `[21, 21, 21, 60]` → `17.85` | placeholder — see (J) |
+
+Nothing in that table except `effort_max` was overwritten. A lumped SRB model and a set
+of gains are controller identification artifacts that can legitimately differ from the
+URDF, and the poses may have been tuned on hardware, so silently replacing them with
+URDF-derived numbers could break a working controller. They are annotated in the config
+instead. **`safety.max_torque` is the one to look at first** — a 25 N·m clamp on a
+40 N·m joint would bite during normal operation.
