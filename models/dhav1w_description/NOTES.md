@@ -161,9 +161,9 @@ same joint expressed with the opposite sign convention, but the other endpoint
 (1.797 vs 2.80) does not correspond, so **the usable knee travel needs confirming.**
 
 Hip and thigh limits *were* taken from the new CAD (`±0.8378`, `[-1.7169, 2.5758]`);
-they agree with the repo values to within ~1°. Efforts/velocities are the new CAD's
-(40 / 40 / 80 / 14 Nm, 10 / 10 / 10 / 5 rad/s) — note `config/dhav1w.yaml`
-`effort_max` still carries dhav1w's `[23.7, 23.7, 45.4, 14.0]`.
+they agree with the repo values to within ~1°. Efforts are the new CAD's
+(40 / 40 / 80 / 14 N·m). Velocities are **not** the CAD's — see (J): the export's
+10 rad/s contradicts the actuator change and was replaced by 6.8 rad/s.
 
 ### D. Base inertia left exactly as exported
 
@@ -244,3 +244,47 @@ Poses, gains, safety thresholds and the `inertial:` lumped SRB model are copied 
 *not* equal the URDF's CAD-exported values — flagged in the file. `hip_offsets`
 (`[0.19, 0.11, 0]`) does not match the URDF hip joints (`[0.2235, 0.0535, 0]`) — that
 discrepancy is inherited from `dhav1w` and was left alone.
+### J. Actuator change: 40 N·m output on the same motor (gear ratio ×1.176)
+
+DHAV 1.3 fits a new hip/thigh/calf actuator rated **40 N·m** output (**80 N·m** at the
+knee) against **34 / 68 N·m** on the previous robot, using the **same motor**. Only the
+reduction changed:
+
+    k = 40/34 = 68/80 inverse = 1.176471
+
+With motor torque and motor speed unchanged, three quantities follow rigorously:
+
+| quantity | law | v0 | now |
+|---|---|---|---|
+| output torque | × k | 34 / 68 N·m | **40 / 80 N·m** (already in the CAD export) |
+| output velocity | × 1/k | 8 rad/s (URDF) | **6.8 rad/s** |
+| output velocity | × 1/k | 21.0 rad/s (config) | **17.85 rad/s** |
+| motor-limit torque | × k | 23.7 / 45.4 N·m (config) | **27.88 / 53.41 N·m** |
+| reflected rotor inertia | × k² = 1.384083 | armature 0.01 | **armature 0.013841** |
+
+The reflected-inertia term is the one that is easy to miss: `armature = J_rotor × N²`,
+so a 17.6 % ratio increase is a **38.4 % increase in reflected inertia**. It changes the
+effective joint mass the controller sees, and at these ratios it is comparable to the
+link inertia itself, so leaving it at the old value would misrepresent the plant.
+
+**The CAD export's velocity numbers are wrong and were overridden.** The export declares
+`velocity="10"` for hip/thigh/calf, i.e. *faster* than the old robot's 8 rad/s. With the
+same motor and more reduction the joint must get **slower**, not faster, so those are
+exporter placeholders. The URDF now carries 6.8 rad/s.
+
+Not touched — the wheel actuator is a different unit, unchanged at 14 N·m across both
+revisions: wheel velocity (5 rad/s), effort (14 N·m) and armature (0.01) all stand.
+
+Also not scaled: MuJoCo `damping` (0.1) and `frictionloss` (0.2). Motor-side viscous
+damping would scale by k² and Coulomb friction by k, but these are round numbers shared
+with `dhav1` and with the *wheel* joint, so they are plainly hand-picked stabilisation
+values rather than identified parameters. Scaling a placeholder by a precise factor
+would be false precision; they are left alone and flagged here instead.
+
+**Needed from the mechanical side:** the absolute reduction ratios. Nothing in this repo
+records them, so `config/dhav1w.yaml` carries `actuators.gearing.ratio: null` with the
+scale factors alongside. The `armature` baseline of 0.01 is likewise an unmeasured
+placeholder inherited from `dhav1` — the *scaling* applied here is correct, but the
+absolute reflected inertia still needs measuring. Also worth confirming what 23.7 /
+45.4 N·m represent (continuous rating?) versus the 34 / 68 N·m peak, since the two pairs
+have never been consistent in this config.
