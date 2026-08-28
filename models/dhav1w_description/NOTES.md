@@ -18,6 +18,85 @@
 Source CAD export: `XTR_Dummy_Wheeled_DHAV_1.3_4 - V1.1` (SW2URDF 1.6.0-4-g7f85cfe,
 exported 2026-08-19), robot name `XTR_Dummy_Wheeled_DHAV_1.3_4`.
 
+---
+
+# 2026-08-28 update: re-based on the Aug-27 CAD export
+
+**Everything below this section was derived from the 2026-08-19 export. The mass
+properties in the model are now from a NEWER export (2026-08-27, assembly
+`XTR_Dummy_Wheeled_DHAV_1.3`, same SW2URDF 1.6.0-4-g7f85cfe).** The hip, thigh,
+calf and torso STLs are byte-for-byte the same size as before, so the parts are
+unchanged; only the mass/material assignment moved. Total mass **20.075 -> 21.268 kg**.
+
+Per-link mass, old export -> new:
+
+| link | 2026-08-19 | 2026-08-27 |
+|---|---|---|
+| base | 6.62068 | **7.87906** |
+| hip | 0.82956 | 0.81145 |
+| thigh | 1.38185 | 1.38185 |
+| calf | 0.63931 | 0.65371 |
+| wheel | 0.51279 | 0.50021 |
+
+The heavier base is confirmed correct by the operator. Two independent signs the
+newer export is better source data, not just different:
+
+* Section 2 below reports the old export shipped `FL_thigh_link ixz = 0.01255517`,
+  making that tensor **indefinite** (eigenvalue -0.0083). The Aug-27 export has
+  **no indefinite tensors** - that corruption is gone at source.
+* Section 2 also reports the old export gave all four thighs identical
+  off-diagonals, so left/right were not mirrored. The Aug-27 export arrives with
+  correct mirror signs already.
+
+Because the magnitudes come from a different export, the *derived* corrections in
+sections 1-3 below (calf frame re-expression, thigh sign pattern, hip sign slip)
+no longer apply to the numbers in the files - the new export did not reproduce
+those defects. Those sections are kept as the record of what the Aug-19 export
+needed.
+
+## Decisions from below that are now REVERSED
+
+* **(A) thigh COMs** were previously left as exported because the two CAD parts
+  genuinely differ. They are now **mirrored to the heavier (left) side** on
+  operator instruction: FR/RR thigh takes FL/RL's mass and COM with `ixy`/`iyz`
+  negated; likewise the calves. This trades fidelity-to-CAD for exact left/right
+  symmetry. The underlying CAD asymmetry described in (A) is real and still
+  unresolved - see (A) for what to ask the mechanical team.
+* **(B) thigh joint origin** is now **symmetric at y = ±0.09435**; the right side
+  was `-0.09300`. Note this removes the 1.35 mm asymmetry that (B) observed was
+  *cancelling* the mesh difference in (A), so the assembled inboard faces no
+  longer line up in CAD terms. Consistent with mirroring the COMs above: the model
+  is now idealised-symmetric throughout rather than faithful to the asymmetric CAD.
+  Side effect: wheel<->hip axial clearance is now equal per side (+40.9 mm front,
+  +39.8 mm rear), so (F)'s per-side clearance caveat no longer applies.
+* **(J) wheel velocity** was `5` rad/s, obtained by scaling by `1/k`. That was
+  **wrong** - the wheel is a different actuator and the k scaling never applied to
+  it. The operator confirms the wheel actuator's max speed is **73 rad/s**
+  (5.61 m/s at r = 0.0769 m). `config` `limits.velocity_max[3]` updated from 60
+  to 73 to match. The three LEG figures (6.8 rad/s) are unchanged and remain
+  the provisional `8/k` placeholders described in (J).
+
+## Also changed
+
+* **Sleep pose** replaced (operator-supplied): per-leg `[HAA, HFE, KFE, WHEEL]`
+  is now `[+0.383, 1.01, -2.8, 0]` left and `[-0.388 / -0.386, 1.01, -2.8, 0]`
+  right, superseding the `[±0.581, 0.836, -2.630, 0]` curl. The hips are
+  deliberately **not** bilaterally symmetric (front-right -0.388, rear-right
+  -0.386); these are measured values and were entered verbatim.
+  KFE now sits **exactly on the -2.8 lower limit**, which puts the pose inside the
+  thigh/calf primitive overlap described in (G): measured **-3.32 mm** on all four
+  legs at this pose, against the ~13 mm clearance the -2.630 pose had. MuJoCo
+  filters it (parent/child), but a planner or a checker without parent filtering
+  will flag it. (G)'s suggested fix still stands.
+* Both MJCF keyframe base heights re-solved for the new geometry:
+  stand `0.4343 -> 0.4341`, sleep `0.1079 -> 0.1075`.
+
+Re-verified after this change: all 17 links positive-definite, left/right pairs
+exact mirrors, URDF and MJCF carry identical mass/COM/inertia, all 31 MuJoCo XMLs
+compile, and both keyframes rest on the floor with zero penetrating contacts.
+
+---
+
 The raw export is **not** used verbatim. This document records every deviation so
 each one can be checked independently.
 
