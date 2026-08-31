@@ -24,23 +24,39 @@
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
 
-    <geom name="step1" size="1 1 0.05" type="box" material="wood" pos ="2 0 0.0"/>
+    <!-- FLAT GROUND ONLY.
+
+         The obstacle blocks below were ACTIVE in this file while the identical
+         blocks in dhav1's and dhav1w's scene.xml were commented out. That made
+         m2's nominal "flat" scene an obstacle course: boxes up to 0.30 m tall
+         starting at x = 2.0, which a policy running a 2.0 m/s command reaches in
+         about a second. A flat-ground evaluation then measured a collision
+         rather than the gait -- observed 2026-07-31, where a healthy policy
+         appeared to fail at speed (reared to -27 deg pitch and travelled
+         backwards) purely from hitting the box at x = 4.5.
+
+         Commented out rather than deleted, matching dhav1, so the courses stay
+         available: uncomment a block to get them back. For terrain evaluation
+         prefer the dedicated scenes -- scene_steps_*.xml, scene_big_uneven.xml,
+         uneven_scene.xml -- which are built for it. -->
+
+    <!-- <geom name="step1" size="1 1 0.05" type="box" material="wood" pos ="2 0 0.0"/> -->
 
     <!--step test2-->
-    <geom name="step2_1" type="box" size="0.4 0.6 0.05" pos="6.2 0 0.05" material="wood"/>
+    <!-- <geom name="step2_1" type="box" size="0.4 0.6 0.05" pos="6.2 0 0.05" material="wood"/>
     <geom name="step2_2" type="box" size="0.3 0.6 0.1" pos="5.8 0 0.1" material="wood"/>
     <geom name="step2_3" type="box" size="0.2 0.6 0.15" pos="5.5 0 0.15" material="wood"/>
     <geom name="step2_4" type="box" size="0.2 0.6 0.22" pos="5.1 0 0.22" material="wood"/>
-    
+
     <geom name="step2_5" type="box" size="0.4 0.6 0.3" pos="4.5 0 0.3" material="wood"/>
-    
+
     <geom name="step2_6" type="box" size="0.2 0.6 0.22" pos="3.9 0 0.22" material="wood"/>
     <geom name="step2_7" type="box" size="0.2 0.6 0.15" pos="3.5 0 0.15" material="wood"/>
     <geom name="step2_8" type="box" size="0.3 0.6 0.1" pos="3.2 0 0.1" material="wood"/>
-    <geom name="step2_9" type="box" size="0.4 0.6 0.05" pos="2.8 0 0.05" material="wood"/>
+    <geom name="step2_9" type="box" size="0.4 0.6 0.05" pos="2.8 0 0.05" material="wood"/> -->
 
     <!--step test3-->
-  <geom name="step3_1" type="box" size="0.1 2.4 0.02" pos="2 2 0.02" material="wood"/>
+  <!-- <geom name="step3_1" type="box" size="0.1 2.4 0.02" pos="2 2 0.02" material="wood"/>
   <geom name="step3_2" type="box" size="0.1 2.4 0.04" pos="2.1 2 0.04" material="wood"/>
   <geom name="step3_3" type="box" size="0.1 2.4 0.06" pos="2.3 2 0.06" material="wood"/>
   <geom name="step3_4" type="box" size="0.1 2.4 0.08" pos="2.4 2 0.08" material="wood"/>
@@ -54,7 +70,7 @@
   <geom name="step3_12" type="box" size="0.1 2.4 0.21" pos="3.3 2 0.21" material="wood"/>
   <geom name="step3_13" type="box" size="0.1 2.4 0.22" pos="3.4 2 0.22" material="wood"/>
   <geom name="step3_14" type="box" size="0.1 2.4 0.24" pos="3.6 2 0.24" material="wood"/>
-  
+
   <geom name="step3_15" type="box" size="0.1 2.4 0.25" pos="3.7 2 0.25" material="wood"/>
 
   <geom name="step3_16" type="box" size="0.1 2.4 0.22" pos="3.8 2 0.22" material="wood"/>
@@ -63,6 +79,6 @@
   <geom name="step3_19" type="box" size="0.1 2.4 0.13" pos="4.1 2 0.13" material="wood"/>
   <geom name="step3_20" type="box" size="0.1 2.4 0.10" pos="4.2 2 0.10" material="wood"/>
   <geom name="step3_21" type="box" size="0.1 2.4 0.07" pos="4.3 2 0.07" material="wood"/>
-  <geom name="step3_22" type="box" size="0.1 2.4 0.04" pos="4.4 2 0.04" material="wood"/>
+  <geom name="step3_22" type="box" size="0.1 2.4 0.04" pos="4.4 2 0.04" material="wood"/> -->
   </worldbody>
 </mujoco>
