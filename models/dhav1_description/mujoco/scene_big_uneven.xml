@@ -15,7 +15,7 @@
         
         <material name="mat_grid" texture="tex_grid" texrepeat="40 20" reflectance="0.2"/>
         
-        <hfield name="terrain_hf" file="terrain_big_world.png" size="20.0 10.0 2.0 0.1"/>
+        <hfield name="terrain_hf" file="../mujoco/terrain_big_world.png" size="20.0 10.0 2.0 0.1"/>
     </asset>
 
     <worldbody>
