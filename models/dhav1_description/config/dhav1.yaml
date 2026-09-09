@@ -22,11 +22,11 @@ joints:
     - RR_thigh_joint
     - RR_calf_joint
 
-  contact_frames:
-    - FL_foot
-    - FR_foot
-    - RL_foot
-    - RR_foot
+  contact_frames:                                   # link names as in the URDF
+    - FL_foot_link
+    - FR_foot_link
+    - RL_foot_link
+    - RR_foot_link
 
   limb_joints:
     FL: [0, 1, 2]
@@ -37,32 +37,59 @@ joints:
   remap_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 limits:
-  # per-group: [hip, thigh, calf]
-  position_lower: [-0.863, -0.686, -2.818]   # rad
-  position_upper: [0.863, 3.829, -0.888]     # rad
-  velocity_max: [21.0, 21.0, 21.0]           # rad/s
-  effort_max: [34.0, 34.0, 68.0]             # Nm
+  # per-group: [hip, thigh, calf].
+  #
+  # CORRECTED: this file previously carried position limits
+  #   lower [-0.863, -0.686, -2.818] / upper [0.863, 3.829, -0.888]
+  # which matched neither the URDF nor the MJCF on any of the six numbers, and
+  # whose thigh upper (3.829 rad = 219 deg) is not a reachable joint angle.
+  # They now match urdf/dhav1_description.urdf and mujoco/dhav1.xml exactly.
+  position_lower: [-0.8378, -1.7169, -2.800]   # rad
+  position_upper: [ 0.8378,  2.5758, -0.212]   # rad
+  #
+  # effort_max is the ACTUATOR RATING and matches the URDF/MJCF. DHAV 1.3 fits
+  # the 40 N.m (80 N.m knee) actuator; this file carried the DHAV 1.0 34/68
+  # figures. Same actuator change as dhav1w v1.3 - see ../NOTES.md (E).
+  effort_max:     [40.0, 40.0, 80.0]           # Nm
+  #
+  # velocity_max is NOT TRUSTWORTHY - identical situation to dhav1w v1.3.
+  # This file carried a flat 21.0 rad/s taken from a commercially available
+  # robot's published spec, not DHAV's. The Aug-27 CAD export is worse still:
+  # it declares 30 rad/s on FL/RL hip+thigh but 10 rad/s on FR, i.e. different
+  # limits on different legs of the same robot, which cannot be right.
+  # The figure below is 21.0 / k with k = 40/34 = 1.176471, carried purely so
+  # the gear-ratio relationship stays self-consistent with effort_max above.
+  # TODO: replace with the measured motor speed / reduction ratio.
+  velocity_max:   [17.85, 17.85, 17.85]        # rad/s  <- PLACEHOLDER
 
 inertial:
-  total_mass: 12.0                            # kg
-  # row-major 3x3 about CoM in body frame
-  inertia: [0.07, 0.0, 0.0,
-            0.0, 0.26, 0.0,
-            0.0, 0.0, 0.242]
+  # CORRECTED: total_mass was 12.0 kg and the inertia diag [0.07, 0.26, 0.242];
+  # both were inherited from a foreign spec sheet and were 5-10x out. The values
+  # below are the whole-body composite of the actual model, evaluated at the
+  # stand keyframe. See ../NOTES.md (F).
+  total_mass: 17.80831                        # kg  (matches URDF/MJCF exactly)
+  # row-major 3x3 about CoM in body frame, stand pose
+  inertia: [0.311913,  0.000000, -0.019062,
+            0.000000,  0.761579,  0.000000,
+            -0.019062, 0.000000,  0.840047]
+  # CoM offset from the base link origin at the stand pose, for reference:
+  com_offset: [-0.02176, 0.0, -0.03638]       # m
+  # CORRECTED: were [+-0.19, +-0.11, 0]; the URDF hip joints are at
+  # [+-0.2235, +-0.0535, 0]. Same discrepancy dhav1w v1.3 flagged.
   hip_offsets:
-    - [0.19, 0.11, 0.0]                      # FL
-    - [0.19, -0.11, 0.0]                     # FR
-    - [-0.19, 0.11, 0.0]                     # RL
-    - [-0.19, -0.11, 0.0]                    # RR
+    - [0.2235, 0.0535, 0.0]                  # FL
+    - [0.2235, -0.0535, 0.0]                 # FR
+    - [-0.2235, 0.0535, 0.0]                 # RL
+    - [-0.2235, -0.0535, 0.0]                # RR
 
 poses:
-  standing_height: 0.3                        # m
+  standing_height: 0.4074                     # m  (base height at the stand pose)
 
   stand:
     # MUST match xterra_loco INIT_STATE for RL policies
     q: [0.1, 0.65, -1.33, -0.1, 0.65, -1.33,
         0.1, 0.87, -1.33, -0.1, 0.87, -1.33]
-    base_pos: [0.0, 0.0, 0.45]
+    base_pos: [0.0, 0.0, 0.4074]   # solved so the feet rest exactly on z=0
 
   sleep:
     q: [0.225, 1.153, -2.720, -0.225, 1.153, -2.720,
@@ -112,7 +139,7 @@ rl:
 
   action:
     # 0.25 * effort_limit / stiffness per group
-    scales_per_group: [0.2125, 0.2125, 0.425] # hip, thigh, calf
+    scales_per_group: [0.25, 0.25, 0.5]       # hip, thigh, calf = 0.25*effort_max/stiffness (40,40,80 / 40)
     clip: 100.0
 
   commands:
@@ -163,6 +190,10 @@ safety:
   pitch_limit: 1.5                            # rad
   max_joint_velocity: 40.0                    # rad/s
   max_torque: 25.0                            # Nm
+  # NOTE: 25.0 N.m is below the 40 N.m actuator rating and only 31 % of the
+  # 80 N.m knee rating, so this clamp will saturate the knee long before the
+  # hardware limit. Inherited value, deliberately left alone - raising a safety
+  # clamp is an operator decision. Same flag as dhav1w v1.3.
   comm_timeout_ms: 100                        # ms
   max_faulted_motors: 2
 

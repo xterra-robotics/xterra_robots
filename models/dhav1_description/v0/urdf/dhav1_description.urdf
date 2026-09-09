@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="dhav1">
+<!--
+    <mujoco>
+        <compiler 
+        meshdir="../meshes"
+        discardvisual="false"
+    />
+    </mujoco>
+    <link name="world"/>
+    <joint name="floating_base" type="floating">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="world"/>
+      <child link="base"/>
+    </joint>
+-->
+    <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.156 0.55 0.96 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.024 0.251 0.169 1.0"/>
+  </material>
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <material name="purple">
+    <color rgba="0.541 0.337 0.722 1.0"/>
+  </material>
+  <material name="aluminium">
+    <color rgba="0.8 0.8 0.82 1.0"/>
+  </material>
+  <!-- Base link -->
+  <link name="base">
+<!-- ORIGINAL DHAV PARAMS -->
+    <inertial>
+      <origin xyz="0.0051 0.0026 -0.0019" rpy="0 0 0"/>
+      <mass value="7.312"/>
+      <inertia ixx="0.034814" ixy="0.000104" ixz="-9.4e-05" iyy="0.084329" iyz="6.7e-05" izz="0.105108"/>
+    </inertial> 
+
+<!--BEGIN EDITIED PARAMS FOR SIM TRIALS -->
+        <!--<inertial>
+      <origin xyz="0.0051 0.0026 -0.0019" rpy="0 0 0"/>
+      <mass value="27.312"/>
+      <inertia ixx="0.13003029" ixy="0.00038844" ixz="-0.00035109" iyy="0.314968" iyz="0.000250" izz="0.39257838"/>
+    </inertial> -->
+<!-- END EDITED PARAMS FOR SIM TRIALS -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/torso.STL"/>
+      </geometry>
+      <material name="purple"/>
+    </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.3062 0.20 0.114"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.12 0.07 -0.082" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.03 0.05"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.12 -0.07 -0.082" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.03 0.05"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.12 0.07 -0.082" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.03 0.05"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.12 -0.07 -0.082" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.03 0.05"/>
+        </geometry>
+      </collision>
+  </link>
+
+  <!-- IMU link -->
+  <link name="imu_link"/>
+  <joint name="base_to_imu" type="fixed">
+    <parent link="base"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="FL_hip_joint" type="revolute">
+    <parent link="base"/>
+    <child link="FL_hip_link"/>
+    <origin xyz="0.2235 0.0535 0.0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.85" upper="0.85" effort="34" velocity="30"/>
+  </joint>
+  <link name="FL_hip_link">
+    <inertial>
+      <origin xyz="-0.00604 0.00237 -0.00041" rpy="0 0 0"/>
+      <mass value="0.7295"/>
+      <inertia ixx="0.000401" ixy="-5e-06" ixz="0" iyy="0.000787" iyz="0.0" izz="0.000551"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FL_hip.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.06 0.0" rpy="1.57 0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.046"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FL_thigh_joint" type="revolute">
+    <parent link="FL_hip_link"/>
+    <child link="FL_thigh_link"/>
+    <origin xyz="0.0 0.09345 0.0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="30"/>
+  </joint>
+  <link name="FL_thigh_link">
+    <inertial>
+      <origin xyz="-0.00202 -0.0172 -0.0338" rpy="0 0 0"/>
+      <mass value="1.4354"/>
+      <inertia ixx="0.00782" ixy="-5.2e-05" ixz="0.000309" iyy="0.007892" iyz="-0.000848" izz="0.001237"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FL_thigh.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.15"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.0 0.0 -0.1" rpy="0 0.3 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.09"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FL_calf_joint" type="revolute">
+    <parent link="FL_thigh_link"/>
+    <child link="FL_calf_link"/>
+    <origin xyz="0.0 0.0 -0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.796" upper="-0.212" effort="68" velocity="10"/>
+  </joint>
+  <link name="FL_calf_link">
+    <inertial>
+      <origin xyz="0.01887 0.0000357 -0.12" rpy="0 0 0"/>
+      <mass value="0.215"/>
+      <inertia ixx="0.00173" ixy="0.0" ixz="-0.000251" iyy="0.0018" iyz="0.0" izz="9.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FL_calf.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.02" rpy="0 -0.15 0"/>
+        <geometry>
+          <cylinder length="0.04" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.025 0.0 -0.11" rpy="0 -0.3 0"/>
+        <geometry>
+          <cylinder length="0.16" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.037 0.0 -0.205" rpy="0 0.4 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.015"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FL_foot_joint" type="fixed" dont_collapse="true">
+    <parent link="FL_calf_link"/>
+    <child link="FL_foot_link"/>
+    <origin xyz="0.0 0.0 -0.27872" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="1000" velocity="0"/>
+  </joint>
+  <link name="FL_foot_link">
+    <inertial>
+      <origin xyz="0.012419 0 0.020197" rpy="0 0 0"/>
+      <mass value="0.0573"/>
+      <inertia ixx="1.7e-05" ixy="0.0" ixz="-2e-06" iyy="1.9e-05" iyz="0.0" izz="2e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FL_foot.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+      <collision>
+        <origin xyz="0.01 0.0 0.02" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.03"/>
+        </geometry>
+      </collision>
+  </link>
+  <link name="FL_foot_site"/>
+  <joint name="FL_foot_site_joint" type="fixed"  dont_collapse="true">
+    <origin rpy="0 0 0" xyz="-0.0 0 -0.016"/>
+    <parent link="FL_foot_link"/>
+    <child link="FL_foot_site"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="FR_hip_joint" type="revolute">
+    <parent link="base"/>
+    <child link="FR_hip_link"/>
+    <origin xyz="0.2235 -0.0535 0.0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.85" upper="0.85" effort="34" velocity="30"/>
+  </joint>
+  <link name="FR_hip_link">
+    <inertial>
+      <origin xyz="-0.00604 -0.00237 -0.00041" rpy="0 0 0"/>
+      <mass value="0.7295"/>
+      <inertia ixx="0.000401" ixy="5e-06" ixz="0" iyy="0.000787" iyz="-0.0" izz="0.000551"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FR_hip.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 -0.06 0.0" rpy="1.57 0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.046"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FR_thigh_joint" type="revolute">
+    <parent link="FR_hip_link"/>
+    <child link="FR_thigh_link"/>
+    <origin xyz="0.0 -0.09345 0.0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="30"/>
+  </joint>
+  <link name="FR_thigh_link">
+    <inertial>
+      <origin xyz="-0.00202 0.0172 -0.0338" rpy="0 0 0"/>
+      <mass value="1.4354"/>
+      <inertia ixx="0.00782" ixy="5.2e-05" ixz="0.000309" iyy="0.007892" iyz="0.000848" izz="0.001237"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FR_thigh.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.15"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.0 0.0 -0.1" rpy="0 0.3 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.09"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FR_calf_joint" type="revolute">
+    <parent link="FR_thigh_link"/>
+    <child link="FR_calf_link"/>
+    <origin xyz="0.0 -0.0 -0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.796" upper="-0.212" effort="68" velocity="10"/>
+  </joint>
+  <link name="FR_calf_link">
+    <inertial>
+      <origin xyz="0.01887 0.0000357 -0.12" rpy="0 0 0"/>
+      <mass value="0.215"/>
+      <inertia ixx="0.00173" ixy="-0.0" ixz="-0.000251" iyy="0.0018" iyz="-0.0" izz="9.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FR_calf.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.02" rpy="0 -0.15 0"/>
+        <geometry>
+          <cylinder length="0.04" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.025 0.0 -0.11" rpy="0 -0.3 0"/>
+        <geometry>
+          <cylinder length="0.16" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.037 0.0 -0.205" rpy="0 0.4 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.015"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="FR_foot_joint" type="fixed" dont_collapse="true">
+    <parent link="FR_calf_link"/>
+    <child link="FR_foot_link"/>
+    <origin xyz="0.0 0.0 -0.27872" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="1000" velocity="0"/>
+  </joint>
+  <link name="FR_foot_link">
+    <inertial>
+      <origin xyz="0.012419 0 0.020197" rpy="0 0 0"/>
+      <mass value="0.0573"/>
+      <inertia ixx="1.7e-05" ixy="-0.0" ixz="-2e-06" iyy="1.9e-05" iyz="-0.0" izz="2e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/FR_foot.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+      <collision>
+        <origin xyz="0.01 0.0 0.02" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.03"/>
+        </geometry>
+      </collision>
+  </link>
+  <link name="FR_foot_site"/>
+  <joint name="FR_foot_site_joint" type="fixed"  dont_collapse="true">
+    <origin rpy="0 0 0" xyz="-0.0 0 -0.016"/>
+    <parent link="FR_foot_link"/>
+    <child link="FR_foot_site"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="RL_hip_joint" type="revolute">
+    <parent link="base"/>
+    <child link="RL_hip_link"/>
+    <origin xyz="-0.2235 0.0535 0.0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.85" upper="0.85" effort="34" velocity="30"/>
+  </joint>
+  <link name="RL_hip_link">
+    <inertial>
+      <origin xyz="0.00604 0.00237 -0.00041" rpy="0 0 0"/>
+      <mass value="0.7295"/>
+      <inertia ixx="0.000401" ixy="-5e-06" ixz="0" iyy="0.000787" iyz="0.0" izz="0.000551"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RL_hip.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.0 0.06 0.0" rpy="1.57 0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.046"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RL_thigh_joint" type="revolute">
+    <parent link="RL_hip_link"/>
+    <child link="RL_thigh_link"/>
+    <origin xyz="-0.0 0.09345 0.0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="30"/>
+  </joint>
+  <link name="RL_thigh_link">
+    <inertial>
+      <origin xyz="0.00202 -0.0172 -0.0338" rpy="0 0 0"/>
+      <mass value="1.4354"/>
+      <inertia ixx="0.00782" ixy="-5.2e-05" ixz="0.000309" iyy="0.007892" iyz="-0.000848" izz="0.001237"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RL_thigh.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.15"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.0 0.0 -0.1" rpy="0 0.3 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.09"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RL_calf_joint" type="revolute">
+    <parent link="RL_thigh_link"/>
+    <child link="RL_calf_link"/>
+    <origin xyz="-0.0 0.0 -0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.796" upper="-0.212" effort="68" velocity="10"/>
+  </joint>
+  <link name="RL_calf_link">
+    <inertial>
+      <origin xyz="0.01887 0.0000357 -0.12" rpy="0 0 0"/>
+      <mass value="0.215"/>
+      <inertia ixx="0.00173" ixy="0.0" ixz="-0.000251" iyy="0.0018" iyz="0.0" izz="9.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RL_calf.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.02" rpy="0 -0.15 0"/>
+        <geometry>
+          <cylinder length="0.04" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.025 0.0 -0.11" rpy="0 -0.3 0"/>
+        <geometry>
+          <cylinder length="0.16" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.037 0.0 -0.205" rpy="0 0.4 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.015"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RL_foot_joint" type="fixed" dont_collapse="true">
+    <parent link="RL_calf_link"/>
+    <child link="RL_foot_link"/>
+    <origin xyz="0.0 0.0 -0.27872" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="1000" velocity="0"/>
+  </joint>
+  <link name="RL_foot_link">
+    <inertial>
+      <origin xyz="0.012419 0 0.020197" rpy="0 0 0"/>
+      <mass value="0.0573"/>
+      <inertia ixx="1.7e-05" ixy="0.0" ixz="-2e-06" iyy="1.9e-05" iyz="0.0" izz="2e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RL_foot.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+      <collision>
+        <origin xyz="0.01 0.0 0.02" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.03"/>
+        </geometry>
+      </collision>
+  </link>
+  <link name="RL_foot_site"/>
+  <joint name="RL_foot_site_joint" type="fixed"  dont_collapse="true">
+    <origin rpy="0 0 0" xyz="-0.0 0 -0.016"/>
+    <parent link="RL_foot_link"/>
+    <child link="RL_foot_site"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="RR_hip_joint" type="revolute">
+    <parent link="base"/>
+    <child link="RR_hip_link"/>
+    <origin xyz="-0.2235 -0.0535 0.0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.85" upper="0.85" effort="34" velocity="30"/>
+  </joint>
+  <link name="RR_hip_link">
+    <inertial>
+      <origin xyz="0.00604 -0.00237 -0.00041" rpy="0 0 0"/>
+      <mass value="0.7295"/>
+      <inertia ixx="0.000401" ixy="5e-06" ixz="0" iyy="0.000787" iyz="-0.0" izz="0.000551"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RR_hip.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.0 -0.06 0.0" rpy="1.57 0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.046"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RR_thigh_joint" type="revolute">
+    <parent link="RR_hip_link"/>
+    <child link="RR_thigh_link"/>
+    <origin xyz="-0.0 -0.09345 0.0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.717" upper="2.575" effort="34" velocity="30"/>
+  </joint>
+  <link name="RR_thigh_link">
+    <inertial>
+      <origin xyz="0.00202 0.0172 -0.0338" rpy="0 0 0"/>
+      <mass value="1.4354"/>
+      <inertia ixx="0.00782" ixy="5.2e-05" ixz="0.000309" iyy="0.007892" iyz="0.000848" izz="0.001237"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RR_thigh.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="-0.025 0.0 -0.13" rpy="0 -0.08 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.15"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.0 0.0 -0.1" rpy="0 0.3 0"/>
+        <geometry>
+          <box size="0.03 0.02 0.09"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RR_calf_joint" type="revolute">
+    <parent link="RR_thigh_link"/>
+    <child link="RR_calf_link"/>
+    <origin xyz="-0.0 -0.0 -0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.796" upper="-0.212" effort="68" velocity="10"/>
+  </joint>
+  <link name="RR_calf_link">
+    <inertial>
+      <origin xyz="0.01887 0.0000357 -0.12" rpy="0 0 0"/>
+      <mass value="0.215"/>
+      <inertia ixx="0.00173" ixy="-0.0" ixz="-0.000251" iyy="0.0018" iyz="-0.0" izz="9.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RR_calf.STL"/>
+      </geometry>
+      <material name="aluminium"/>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.02" rpy="0 -0.15 0"/>
+        <geometry>
+          <cylinder length="0.04" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.025 0.0 -0.11" rpy="0 -0.3 0"/>
+        <geometry>
+          <cylinder length="0.16" radius="0.015"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.037 0.0 -0.205" rpy="0 0.4 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.015"/>
+        </geometry>
+      </collision>
+  </link>
+  <joint name="RR_foot_joint" type="fixed" dont_collapse="true">
+    <parent link="RR_calf_link"/>
+    <child link="RR_foot_link"/>
+    <origin xyz="0.0 0.0 -0.27872" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="1000" velocity="0"/>
+  </joint>
+  <link name="RR_foot_link">
+    <inertial>
+      <origin xyz="0.012419 0 0.020197" rpy="0 0 0"/>
+      <mass value="0.0573"/>
+      <inertia ixx="1.7e-05" ixy="-0.0" ixz="-2e-06" iyy="1.9e-05" iyz="-0.0" izz="2e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://dhav1_description/meshes/RR_foot.STL"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+      <collision>
+        <origin xyz="0.01 0.0 0.02" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.03"/>
+        </geometry>
+      </collision>
+  </link>
+  <link name="RR_foot_site"/>
+  <joint name="RR_foot_site_joint" type="fixed"  dont_collapse="true">
+    <origin rpy="0 0 0" xyz="-0.0 0 -0.016"/>
+    <parent link="RR_foot_link"/>
+    <child link="RR_foot_site"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!-- Transmissions for all joints -->
+  <transmission name="FL_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FL_hip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FL_hip_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="FL_thigh_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FL_thigh_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FL_thigh_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="FL_calf_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FL_calf_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FL_calf_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="FR_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FR_hip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FR_hip_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="FR_thigh_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FR_thigh_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FR_thigh_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="FR_calf_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FR_calf_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="FR_calf_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RL_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RL_hip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RL_hip_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RL_thigh_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RL_thigh_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RL_thigh_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RL_calf_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RL_calf_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RL_calf_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RR_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RR_hip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RR_hip_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RR_thigh_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RR_thigh_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RR_thigh_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RR_calf_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RR_calf_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RR_calf_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
