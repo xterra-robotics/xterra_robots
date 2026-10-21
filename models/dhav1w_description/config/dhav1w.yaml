@@ -2,7 +2,7 @@
 # meshes) with names/paths retargeted and the mass properties refreshed from
 # the DHAV 1.3 CAD export.  Poses, gains, limits and the `inertial:` lumped
 # model below are INHERITED FROM dhav1w AND HAVE NOT BEEN RE-TUNED for the new
-# mass set or the smaller native wheel - see ../NOTES.md before relying on them.
+# mass set or the go2w wheel (r = 0.086 m) - see ../NOTES.md before relying on them.
 robot_name: "dhav1w"
 morphology: "quadruped_wheeled"
 num_joints: 16
@@ -64,20 +64,11 @@ limits:
   # described DHAV hardware and must not be scaled or reasoned from.
   effort_max:     [40.0, 40.0, 80.0, 14.0]          # Nm
   #
-  # velocity_max is NOT TRUSTWORTHY. dhav1w carried [21.0, 21.0, 21.0, 60.0],
-  # which come from the same borrowed spec as the old effort figures. Every
-  # other velocity source in this repo is also suspect: the old URDF used a
-  # flat 8 rad/s on all four joints including the wheel, and the DHAV 1.3 CAD
-  # export declares 10 rad/s, which is faster than before and therefore
-  # impossible (same motor, more reduction). The URDF currently carries
-  # 6.8 rad/s = 8 / k purely to keep the k relationship self-consistent.
-  # What IS certain: whatever the true no-load joint speed was, the new
-  # actuator's is 1/k = 0.85 x it. See ../NOTES.md (J).
-  # TODO: replace the three LEG figures with the measured motor speed /
-  # reduction. The WHEEL figure is settled: 73 rad/s is the actuator's
-  # real max speed (operator, 2026-08-28) = 5.61 m/s at r = 0.0769 m.
-  # It replaces both the borrowed 60 and the incorrectly k-scaled 5.
-  velocity_max:   [17.85, 17.85, 17.85, 73.0]       # rad/s  <- legs placeholder; wheel confirmed
+  # velocity_max: actuator max speeds supplied by the operator (2026-10-21):
+  # hip/thigh 19.03 rad/s, knee 9.52 rad/s. These replace the 17.85 = 21.0/k
+  # placeholder. The wheel max velocity is 45 rad/s (operator, 2026-10-21;
+  # replaces 73) = 3.87 m/s at the go2w wheel's r = 0.086 m.
+  velocity_max:   [19.03, 19.03, 9.52, 45.0]        # rad/s
 
 inertial:
   # !! UNVERIFIED - LIKELY FROM A DIFFERENT ROBOT !!

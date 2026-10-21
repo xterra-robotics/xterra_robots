@@ -20,6 +20,69 @@ exported 2026-08-19), robot name `XTR_Dummy_Wheeled_DHAV_1.3_4`.
 
 ---
 
+# 2026-10-21 update: V1.2 export, go2w wheels, operator velocities
+
+**Mass properties and thigh offset re-based on the `XTR_Dummy_Wheeled_DHAV_1.3_V1.2`
+export** (`XTR_DHAV_1.3_W_V1.3_updated.urdf`). Taken from it verbatim:
+
+| link / joint | before | V1.2 |
+|---|---|---|
+| base mass | 7.87906 | 7.87887 (inertia changes in the 5th-6th decimal) |
+| hip COM | `(-0.00574, 0.00305, 0)` | `(-0.00568, 0.00341, 0)` |
+| thigh COM | `(-0.00746, -0.00751, -0.07423)` | `(-0.00741, -0.00852, -0.07423)` |
+| calf mass | 0.65371 | **0.72229** (+10.5 %) |
+| calf inertia ixx/iyy/izz | 0.00397 / 0.00415 / 0.00028 | 0.00477 / 0.00496 / 0.00032 |
+| thigh joint origin y | +-0.09435 | **+-0.09715** |
+
+The V1.2 export is already left/right mirrored, so no sign correction was needed.
+Its calf inertia is given to only 5 decimal places. It is positive-definite.
+
+**Not taken from V1.2:**
+
+* **Velocity limits.** The operator gave these figures, which replace both the
+  export's values and the earlier placeholders:
+
+  | joint | operator | V1.2 export | earlier placeholder |
+  |---|---|---|---|
+  | hip/thigh | **19.03 rad/s** | 25 | 6.8 = 8/k |
+  | knee | **9.52 rad/s** | 13.33 | 6.8 = 8/k |
+  | wheel | **45 rad/s** (= 3.87 m/s at r = 0.086) | 43 | 73 |
+
+  They are set in both URDFs and in `config` `limits.velocity_max`. The (J)
+  reasoning about torque and reflected inertia still holds, but its velocity
+  caveat no longer applies.
+* **Calf joint limits.** V1.2 gives `[-2.532, -0.691]`. The model keeps
+  `[-2.8, -0.212]` (operator decision, 2026-10-21). The operator's sleep pose puts
+  the knee at -2.8.
+* **Wheel link and collision meshes.** See below. Collisions stay as primitives.
+
+**Wheels swapped back to the go2w wheel (r = 0.086 m).** This supersedes (E) and (F)
+below, which describe the native 77 mm DHAV 1.3 wheel.
+
+* The wheel *link* is copied verbatim from `v0/`:
+  * mesh `v0/meshes/*_wheel.STL`
+  * mass 0.520 kg, COM `y = +-0.012`, diag inertia `[0.0007, 0.0012, 0.0007]`
+  * visual offset `y = -+0.048`, with the left-side mesh flipped 180 deg about x
+  * collision cylinder r = 0.086, 45 mm wide
+* The native wheel meshes are kept as `meshes/*_wheel_dhav13.STL`.
+* The wheel **joint** origin is NOT taken from `v0/`. It stays at the DHAV 1.3 CAD
+  axle position `y = +-0.04597, z = -0.22088` (v0 used `y = +-0.043`), because the
+  axle position belongs to the calf, not the wheel.
+
+**Combined effect:**
+
+* Total mass is 21.268 -> 21.621 kg.
+* Keyframe base heights were re-solved with the same lowest-collision-geom-on-z=0
+  method: stand `0.4341 -> 0.4425`, sleep `0.1075 -> 0.1135`.
+* Neither keyframe has any contact.
+* A 25^3 = 15,625-pose hip x thigh x calf sweep over the full joint ranges gives
+  zero wheel self-contacts.
+* URDF and MJCF carry the same inertials. For the wheel, the URDF loader reports
+  the same tensor with its principal axes reordered.
+* All 31 MuJoCo XMLs compile.
+
+---
+
 # 2026-08-28 update: re-based on the Aug-27 CAD export
 
 **Everything below this section was derived from the 2026-08-19 export. The mass
