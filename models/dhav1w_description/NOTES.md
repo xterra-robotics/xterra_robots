@@ -1,9 +1,11 @@
 # dhav1w — DHAV v1.3 wheeled
 
-> **This directory was updated in place.** The previous model is preserved verbatim
-> under [`v0/`](v0/) as a complete snapshot (`urdf/`, `mujoco/`, `meshes/`, `config/`,
-> `launch/`, `CMakeLists.txt`, `package.xml`). Nothing in `v0/` was altered — it is a
-> rollback point, and `v0/mujoco/mjmodel.xml` is the old compiled dump.
+> **This directory was updated in place.** The previous model was kept under `v0/` as
+> a complete snapshot (`urdf/`, `mujoco/`, `meshes/`, `config/`, `launch/`,
+> `CMakeLists.txt`, `package.xml`) until 2026-10-21. That snapshot has since been
+> removed from the tree. To get it back, run
+> `git checkout b247ad5 -- models/dhav1w_description/v0`. References to `v0` below
+> mean that snapshot.
 >
 > Carried forward unchanged from the old model into the top level:
 > `CMakeLists.txt`, `package.xml`, `launch/`,
@@ -13,7 +15,7 @@
 > One pre-existing break was fixed while carrying it forward:
 > `scene_big_uneven.xml` failed to load in the old model too, because MuJoCo resolves
 > `<hfield file=...>` relative to `meshdir` (`../meshes/`) but `terrain_big_world.png`
-> sat in `mujoco/`. The png now lives in `meshes/`; `v0/` keeps the original layout.
+> sat in `mujoco/`. The png now lives in `meshes/`.
 
 Source CAD export: `XTR_Dummy_Wheeled_DHAV_1.3_4 - V1.1` (SW2URDF 1.6.0-4-g7f85cfe,
 exported 2026-08-19), robot name `XTR_Dummy_Wheeled_DHAV_1.3_4`.
@@ -60,7 +62,7 @@ Its calf inertia is given to only 5 decimal places. It is positive-definite.
 below, which describe the native 77 mm DHAV 1.3 wheel.
 
 * The wheel *link* is copied verbatim from `v0/`:
-  * mesh `v0/meshes/*_wheel.STL`
+  * mesh `v0/meshes/*_wheel.STL`, now in `meshes/*_wheel.STL`
   * mass 0.520 kg, COM `y = +-0.012`, diag inertia `[0.0007, 0.0012, 0.0007]`
   * visual offset `y = -+0.048`, with the left-side mesh flipped 180 deg about x
   * collision cylinder r = 0.086, 45 mm wide
