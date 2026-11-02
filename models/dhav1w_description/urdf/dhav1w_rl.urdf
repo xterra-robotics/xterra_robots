@@ -18,8 +18,8 @@
   <link name="base">
     <inertial>
       <origin xyz="0 0 -0.011647" rpy="0 0 0"/>
-      <mass value="7.87887412"/>
-      <inertia ixx="0.03603734" ixy="-0.00013785" ixz="-0.0000744" iyy="0.09487623" iyz="0.00002762" izz="0.11626455" />
+      <mass value="8.07906075"/>
+      <inertia ixx="0.0369543" ixy="-0.00014153" ixz="-0.00007628" iyy="0.09728527" iyz="0.00002828" izz="0.11921838" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -61,9 +61,9 @@
   </link>
   <link name="FL_hip_link">
     <inertial>
-      <origin xyz="-0.0056813 0.0034137 -0.0000001485" rpy="0 0 0"/>
-      <mass value="0.81144848"/>
-      <inertia ixx="0.00046498" ixy="0.00001172" ixz="-0.00000013" iyy="0.00097192" iyz="0.00000004" izz="0.000712" />
+      <origin xyz="-0.0057414 0.0030508 -0.00000015" rpy="0 0 0"/>
+      <mass value="0.954"/>
+      <inertia ixx="0.00054667" ixy="0.00001378" ixz="-0.00000015" iyy="0.00114266" iyz="0.00000005" izz="0.00083708" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -81,9 +81,9 @@
   </link>
   <link name="FL_thigh_link">
     <inertial>
-      <origin xyz="-0.0074148735 -0.0085165054 -0.0742344459" rpy="0 0 0"/>
-      <mass value="1.38185132"/>
-      <inertia ixx="0.00817916" ixy="-0.00006601" ixz="0.00029421" iyy="0.00820121" iyz="-0.00099956" izz="0.00129555" />
+      <origin xyz="-0.0074643 -0.0075133 -0.074231" rpy="0 0 0"/>
+      <mass value="1.456"/>
+      <inertia ixx="0.00861805" ixy="-0.00006955" ixz="0.00031" iyy="0.00864128" iyz="-0.0010532" izz="0.00136507" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -107,9 +107,9 @@
   </link>
   <link name="FL_calf_link">
     <inertial>
-      <origin xyz="0.0040567011 0.0012257772 -0.1195014743" rpy="0 0 0"/>
-      <mass value="0.72229"/>
-      <inertia ixx="0.00477" ixy="0" ixz="-0.00005" iyy="0.00496" iyz="0.00005" izz="0.00032" />
+      <origin xyz="0.0040567 0.00122578 -0.11950147" rpy="0 0 0"/>
+      <mass value="0.73669"/>
+      <inertia ixx="0.00447114" ixy="-0.00000154" ixz="-0.00005579" iyy="0.00467138" iyz="0.0000227" izz="0.00031981" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -139,12 +139,15 @@
   </link>
   <link name="FL_wheel">
     <inertial>
-      <origin xyz="0 0.012 0" rpy="0 0 0"/>
-      <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <origin xyz="0 -0.0035258 0" rpy="0 0 0"/>
+      <mass value="0.562"/>
+      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007" />
     </inertial>
     <visual>
-      <origin xyz="0 -0.048 0" rpy="3.14159 0 0"/>
+      <!-- The wheel STL is authored 50.76 mm off its own origin along y; this
+           offset puts the rendered mesh on the axle. Visual only: the
+           collision cylinder below is already correct. -->
+      <origin xyz="0 0.05076426 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="../meshes/FL_wheel.STL"/>
       </geometry>
@@ -153,15 +156,15 @@
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder length="0.045" radius="0.086"/>
+        <cylinder length="0.054" radius="0.086"/>
       </geometry>
     </collision>
   </link>
   <link name="FR_hip_link">
     <inertial>
-      <origin xyz="-0.0056813 -0.0034137 0.0000001485" rpy="0 0 0"/>
-      <mass value="0.81144848"/>
-      <inertia ixx="0.00046498" ixy="-0.00001172" ixz="0.00000013" iyy="0.00097192" iyz="0.00000004" izz="0.000712" />
+      <origin xyz="-0.0057414 -0.0030508 0.00000015" rpy="0 0 0"/>
+      <mass value="0.954"/>
+      <inertia ixx="0.00054667" ixy="-0.00001378" ixz="0.00000015" iyy="0.00114266" iyz="0.00000005" izz="0.00083708" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -179,9 +182,9 @@
   </link>
   <link name="FR_thigh_link">
     <inertial>
-      <origin xyz="-0.0074148735 0.0085165054 -0.0742344459" rpy="0 0 0"/>
-      <mass value="1.38185132"/>
-      <inertia ixx="0.00817916" ixy="0.00006601" ixz="0.00029421" iyy="0.00820121" iyz="0.00099956" izz="0.00129555" />
+      <origin xyz="-0.0074643 0.0075133 -0.074231" rpy="0 0 0"/>
+      <mass value="1.456"/>
+      <inertia ixx="0.00861805" ixy="0.00006955" ixz="0.00031" iyy="0.00864128" iyz="0.0010532" izz="0.00136507" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -205,9 +208,9 @@
   </link>
   <link name="FR_calf_link">
     <inertial>
-      <origin xyz="0.0040567011 -0.0012257772 -0.1195014743" rpy="0 0 0"/>
-      <mass value="0.72229"/>
-      <inertia ixx="0.00477" ixy="0" ixz="-0.00005" iyy="0.00496" iyz="-0.00005" izz="0.00032" />
+      <origin xyz="0.0040567 -0.00122578 -0.11950147" rpy="0 0 0"/>
+      <mass value="0.73669"/>
+      <inertia ixx="0.00447114" ixy="0.00000154" ixz="-0.00005579" iyy="0.00467138" iyz="-0.0000227" izz="0.00031981" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -237,12 +240,15 @@
   </link>
   <link name="FR_wheel">
     <inertial>
-      <origin xyz="0 -0.012 0" rpy="0 0 0"/>
-      <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <origin xyz="0 0.0035258 0" rpy="0 0 0"/>
+      <mass value="0.562"/>
+      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007" />
     </inertial>
     <visual>
-      <origin xyz="0 0.048 0" rpy="0 0 0"/>
+      <!-- The wheel STL is authored 50.76 mm off its own origin along y; this
+           offset puts the rendered mesh on the axle. Visual only: the
+           collision cylinder below is already correct. -->
+      <origin xyz="0 0.05076426 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="../meshes/FR_wheel.STL"/>
       </geometry>
@@ -251,15 +257,15 @@
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder length="0.045" radius="0.086"/>
+        <cylinder length="0.054" radius="0.086"/>
       </geometry>
     </collision>
   </link>
   <link name="RL_hip_link">
     <inertial>
-      <origin xyz="0.0056813 0.0034137 0.0000001485" rpy="0 0 0"/>
-      <mass value="0.81144848"/>
-      <inertia ixx="0.00046498" ixy="-0.00001172" ixz="-0.00000013" iyy="0.00097192" iyz="-0.00000004" izz="0.000712" />
+      <origin xyz="0.0057414 0.0030508 0.00000015" rpy="0 0 0"/>
+      <mass value="0.954"/>
+      <inertia ixx="0.00054667" ixy="-0.00001378" ixz="-0.00000015" iyy="0.00114266" iyz="-0.00000005" izz="0.00083708" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -277,9 +283,9 @@
   </link>
   <link name="RL_thigh_link">
     <inertial>
-      <origin xyz="-0.0074148735 -0.0085165054 -0.0742344459" rpy="0 0 0"/>
-      <mass value="1.38185132"/>
-      <inertia ixx="0.00817916" ixy="-0.00006601" ixz="0.00029421" iyy="0.00820121" iyz="-0.00099956" izz="0.00129555" />
+      <origin xyz="-0.0074643 -0.0075133 -0.074231" rpy="0 0 0"/>
+      <mass value="1.456"/>
+      <inertia ixx="0.00861805" ixy="-0.00006955" ixz="0.00031" iyy="0.00864128" iyz="-0.0010532" izz="0.00136507" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -303,9 +309,9 @@
   </link>
   <link name="RL_calf_link">
     <inertial>
-      <origin xyz="0.0040567011 0.0012257772 -0.1195014743" rpy="0 0 0"/>
-      <mass value="0.72229"/>
-      <inertia ixx="0.00477" ixy="0" ixz="-0.00005" iyy="0.00496" iyz="0.00005" izz="0.00032" />
+      <origin xyz="0.0040567 0.0012258 -0.1195" rpy="0 0 0"/>
+      <mass value="0.73669"/>
+      <inertia ixx="0.0044716" ixy="-0.00000153" ixz="-0.00005589" iyy="0.00467184" iyz="0.00002267" izz="0.00031982" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -335,12 +341,15 @@
   </link>
   <link name="RL_wheel">
     <inertial>
-      <origin xyz="0 0.012 0" rpy="0 0 0"/>
-      <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <origin xyz="0 -0.0035258 0" rpy="0 0 0"/>
+      <mass value="0.562"/>
+      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007" />
     </inertial>
     <visual>
-      <origin xyz="0 -0.048 0" rpy="3.14159 0 0"/>
+      <!-- The wheel STL is authored 50.76 mm off its own origin along y; this
+           offset puts the rendered mesh on the axle. Visual only: the
+           collision cylinder below is already correct. -->
+      <origin xyz="0 0.05076426 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="../meshes/RL_wheel.STL"/>
       </geometry>
@@ -349,15 +358,15 @@
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder length="0.045" radius="0.086"/>
+        <cylinder length="0.054" radius="0.086"/>
       </geometry>
     </collision>
   </link>
   <link name="RR_hip_link">
     <inertial>
-      <origin xyz="0.0056813 -0.0034137 -0.0000001485" rpy="0 0 0"/>
-      <mass value="0.81144848"/>
-      <inertia ixx="0.00046498" ixy="0.00001172" ixz="0.00000013" iyy="0.00097192" iyz="-0.00000004" izz="0.000712" />
+      <origin xyz="0.0057414 -0.0030508 -0.00000015" rpy="0 0 0"/>
+      <mass value="0.954"/>
+      <inertia ixx="0.00054667" ixy="0.00001378" ixz="0.00000015" iyy="0.00114266" iyz="-0.00000005" izz="0.00083708" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -375,9 +384,9 @@
   </link>
   <link name="RR_thigh_link">
     <inertial>
-      <origin xyz="-0.0074148735 0.0085165054 -0.0742344459" rpy="0 0 0"/>
-      <mass value="1.38185132"/>
-      <inertia ixx="0.00817916" ixy="0.00006601" ixz="0.00029421" iyy="0.00820121" iyz="0.00099956" izz="0.00129555" />
+      <origin xyz="-0.0074643 0.0075133 -0.074231" rpy="0 0 0"/>
+      <mass value="1.456"/>
+      <inertia ixx="0.00861805" ixy="0.00006955" ixz="0.00031" iyy="0.00864128" iyz="0.0010532" izz="0.00136507" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -401,9 +410,9 @@
   </link>
   <link name="RR_calf_link">
     <inertial>
-      <origin xyz="0.0040567011 -0.0012257772 -0.1195014743" rpy="0 0 0"/>
-      <mass value="0.72229"/>
-      <inertia ixx="0.00477" ixy="0" ixz="-0.00005" iyy="0.00496" iyz="-0.00005" izz="0.00032" />
+      <origin xyz="0.0040567 -0.0012258 -0.1195" rpy="0 0 0"/>
+      <mass value="0.73669"/>
+      <inertia ixx="0.0044716" ixy="0.00000153" ixz="-0.00005589" iyy="0.00467184" iyz="-0.00002267" izz="0.00031982" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -433,12 +442,15 @@
   </link>
   <link name="RR_wheel">
     <inertial>
-      <origin xyz="0 -0.012 0" rpy="0 0 0"/>
-      <mass value="0.520"/>
-      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007"/>
+      <origin xyz="0 0.0035258 0" rpy="0 0 0"/>
+      <mass value="0.562"/>
+      <inertia ixx="0.0007" ixy="0" ixz="0" iyy="0.0012" iyz="0" izz="0.0007" />
     </inertial>
     <visual>
-      <origin xyz="0 0.048 0" rpy="0 0 0"/>
+      <!-- The wheel STL is authored 50.76 mm off its own origin along y; this
+           offset puts the rendered mesh on the axle. Visual only: the
+           collision cylinder below is already correct. -->
+      <origin xyz="0 0.05076426 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="../meshes/RR_wheel.STL"/>
       </geometry>
@@ -447,7 +459,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder length="0.045" radius="0.086"/>
+        <cylinder length="0.054" radius="0.086"/>
       </geometry>
     </collision>
   </link>
@@ -456,111 +468,111 @@
     <parent link="base"/>
     <child link="FL_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="19.03"/>
+    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="6.8"/>
   </joint>
   <joint name="FL_thigh_joint" type="revolute">
-    <origin xyz="0 0.09715 0" rpy="0 0 0"/>
+    <origin xyz="0 0.09815 0" rpy="0 0 0"/>
     <parent link="FL_hip_link"/>
     <child link="FL_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="19.03"/>
+    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="6.8"/>
   </joint>
   <joint name="FL_calf_joint" type="revolute">
     <origin xyz="0 0 -0.25" rpy="0 0 0"/>
     <parent link="FL_thigh_link"/>
     <child link="FL_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-2.8" upper="-0.212" effort="80" velocity="9.52"/>
+    <limit lower="-2.8" upper="-0.86" effort="80" velocity="6.8"/>
   </joint>
   <joint name="FL_wheel_joint" type="continuous">
     <origin xyz="0 0.04596966 -0.22088353" rpy="0 0 0"/>
     <parent link="FL_calf_link"/>
     <child link="FL_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="45"/>
+    <limit effort="14" velocity="73"/>
   </joint>
   <joint name="FR_hip_joint" type="revolute">
     <origin xyz="0.2235 -0.0535 0" rpy="0 0 0"/>
     <parent link="base"/>
     <child link="FR_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="19.03"/>
+    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="6.8"/>
   </joint>
   <joint name="FR_thigh_joint" type="revolute">
-    <origin xyz="0 -0.09715 0" rpy="0 0 0"/>
+    <origin xyz="0 -0.09815 0" rpy="0 0 0"/>
     <parent link="FR_hip_link"/>
     <child link="FR_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="19.03"/>
+    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="6.8"/>
   </joint>
   <joint name="FR_calf_joint" type="revolute">
     <origin xyz="0 0 -0.25" rpy="0 0 0"/>
     <parent link="FR_thigh_link"/>
     <child link="FR_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-2.8" upper="-0.212" effort="80" velocity="9.52"/>
+    <limit lower="-2.8" upper="-0.86" effort="80" velocity="6.8"/>
   </joint>
   <joint name="FR_wheel_joint" type="continuous">
     <origin xyz="0 -0.04596966 -0.22088353" rpy="0 0 0"/>
     <parent link="FR_calf_link"/>
     <child link="FR_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="45"/>
+    <limit effort="14" velocity="73"/>
   </joint>
   <joint name="RL_hip_joint" type="revolute">
     <origin xyz="-0.2235 0.0535 0" rpy="0 0 0"/>
     <parent link="base"/>
     <child link="RL_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="19.03"/>
+    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="6.8"/>
   </joint>
   <joint name="RL_thigh_joint" type="revolute">
-    <origin xyz="0 0.09715 0" rpy="0 0 0"/>
+    <origin xyz="0 0.09815 0" rpy="0 0 0"/>
     <parent link="RL_hip_link"/>
     <child link="RL_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="19.03"/>
+    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="6.8"/>
   </joint>
   <joint name="RL_calf_joint" type="revolute">
     <origin xyz="0 0 -0.25" rpy="0 0 0"/>
     <parent link="RL_thigh_link"/>
     <child link="RL_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-2.8" upper="-0.212" effort="80" velocity="9.52"/>
+    <limit lower="-2.8" upper="-0.86" effort="80" velocity="6.8"/>
   </joint>
   <joint name="RL_wheel_joint" type="continuous">
     <origin xyz="0 0.04596966 -0.22088353" rpy="0 0 0"/>
     <parent link="RL_calf_link"/>
     <child link="RL_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="45"/>
+    <limit effort="14" velocity="73"/>
   </joint>
   <joint name="RR_hip_joint" type="revolute">
     <origin xyz="-0.2235 -0.0535 0" rpy="0 0 0"/>
     <parent link="base"/>
     <child link="RR_hip_link"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="19.03"/>
+    <limit lower="-0.8378" upper="0.8378" effort="40" velocity="6.8"/>
   </joint>
   <joint name="RR_thigh_joint" type="revolute">
-    <origin xyz="0 -0.09715 0" rpy="0 0 0"/>
+    <origin xyz="0 -0.09815 0" rpy="0 0 0"/>
     <parent link="RR_hip_link"/>
     <child link="RR_thigh_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="19.03"/>
+    <limit lower="-1.7169" upper="2.5758" effort="40" velocity="6.8"/>
   </joint>
   <joint name="RR_calf_joint" type="revolute">
     <origin xyz="0 0 -0.25" rpy="0 0 0"/>
     <parent link="RR_thigh_link"/>
     <child link="RR_calf_link"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-2.8" upper="-0.212" effort="80" velocity="9.52"/>
+    <limit lower="-2.8" upper="-0.86" effort="80" velocity="6.8"/>
   </joint>
   <joint name="RR_wheel_joint" type="continuous">
     <origin xyz="0 -0.04596966 -0.22088353" rpy="0 0 0"/>
     <parent link="RR_calf_link"/>
     <child link="RR_wheel"/>
     <axis xyz="0 1 0"/>
-    <limit effort="14" velocity="45"/>
+    <limit effort="14" velocity="73"/>
   </joint>
 </robot>
