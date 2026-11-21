@@ -52,3 +52,10 @@ What's actually checked in today:
   `config/dhav1w.yaml` (canonical schema; calibrated sleep pose and
   spawn-hold gains)
 - `m2_metal_description`: `urdf/`, `mujoco/`, `meshes/`
+
+## Licence
+
+Copyright (c) 2025-2026, xTerra Robotics. The robot models, meshes, scenes and
+configuration in this repository are licensed under the BSD 3-Clause License;
+see [`LICENSE`](LICENSE). The licence does not grant use of the xTerra Robotics
+name or marks to endorse or promote derived products (clause 3).
